@@ -3,93 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Fronk Links</title>
+    <title>The Fronk</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        /* General Reset */
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #2b5876, #4e4376);
-            color: #fff;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e1e1e, #000);
+            color: #f4f4f4;
+            overflow: hidden;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            text-align: center;
+            perspective: 1000px;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle, rgba(255, 0, 150, 0.2), rgba(0, 0, 255, 0));
+            animation: pulse 6s infinite alternate ease-in-out;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                filter: blur(2px);
+            }
+            100% {
+                transform: scale(1.2);
+                filter: blur(6px);
+            }
+        }
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent),
+                        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent 1px, transparent 10px);
+            z-index: -2;
+            animation: rotate 60s infinite linear;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
         .container {
-            background: #ffffff;
-            color: #333;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            padding: 30px;
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(10, 10, 10, 0.9));
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             width: 90%;
-            max-width: 500px;
+            max-width: 480px;
+            padding: 30px;
+            text-align: center;
+            animation: float 6s ease-in-out infinite alternate;
         }
-        .profile {
-            margin-bottom: 20px;
+        @keyframes float {
+            0% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(10px);
+            }
         }
         .profile img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 3px solid #007BFF;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 0, 150, 0.5);
         }
         .profile h1 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-        .profile p {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
             margin-bottom: 20px;
-            font-size: 1rem;
-            color: #555;
         }
-        .links a {
+        .link-button {
             display: block;
             text-decoration: none;
-            background: linear-gradient(135deg, #007BFF, #0056b3);
+            background: linear-gradient(135deg, #ff0080, #ff8000);
             color: #fff;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            transition: transform 0.3s, background 0.3s;
+            padding: 15px;
+            margin: 10px auto;
+            border-radius: 50px;
+            max-width: 300px;
+            box-shadow: 0 10px 40px rgba(255, 0, 150, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .links a:hover {
-            background: linear-gradient(135deg, #0056b3, #003d80);
-            transform: translateY(-3px);
+        .link-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 60px rgba(255, 0, 150, 0.8);
+        }
+        .link-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 5px 20px rgba(255, 0, 150, 0.4);
         }
         .footer {
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 0.9rem;
-            color: #888;
-        }
-        .footer a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
+    <div class="background"></div>
+    <div class="stars"></div>
     <div class="container">
         <div class="profile">
-            <img src="https://drive.google.com/file/d/1yFk24g3H_1EDgVwnjzunb0HA8dk3ojBA/view?usp=sharing" alt="Profile Picture">
+            <img src="https://github.com/thefronky/CallFronkRedirect/raw/883f20ba8f43ca56246a56cefc72827e27841c0d/ECCD2C77-2329-4A03-81BC-B86FE9D44450_1_102_o.jpeg" alt="The Fronk">
             <h1>The Fronk</h1>
-            <p>Welcome to my links! Connect with me below.</p>
         </div>
-        <div class="links">
-            <a href="https://www.tiktok.com/@thefronk" target="_blank">🎥 TikTok</a>
-            <a href="https://www.instagram.com/thefronky/" target="_blank">📸 Instagram</a>
-            <a href="https://www.youtube.com/@the_fronk" target="_blank">▶️ YouTube</a>
-            <a href="https://www.twitch.tv/thefronky" target="_blank">▶️ Twitch</a> 
-        </div>
+        <a href="https://www.tiktok.com/@thefronk" class="link-button">TIKTOK</a>
+        <a href="https://www.twitch.tv/thefronky" class="link-button">TWITCH</a>
+        <a href="https://www.youtube.com/@the_fronk" class="link-button">YOUTUBE</a>
+        <a href="https://www.instagram.com/thefronky/" class="link-button">INSTAGRAM</a>
+        <a href="https://discord.gg/s3QzyuvP" class="link-button">DISCORD</a>
+        <a href="https://www.blushiftcreative.com/" class="link-button">BLU</a>
+        <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">MERCH</a>
         <div class="footer">
-            <p> 2025 The Fronk Show. Built with 💻 and ❤️.</p>
+            <p>Fronk Show Productions</p>
         </div>
     </div>
 </body>
