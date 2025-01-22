@@ -28,21 +28,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 0, 150, 0.2), rgba(0, 0, 255, 0)),
-                        radial-gradient(circle, rgba(255, 255, 0, 0.2), rgba(0, 255, 255, 0));
-            mix-blend-mode: screen;
-            animation: kaleidoscope 10s infinite linear;
-            z-index: -1;
+            background: radial-gradient(circle, #ff00ff, #00ffff, #ffcc00, #ff0000);
+            animation: kaleidoscope 20s infinite linear;
+            clip-path: polygon(
+                50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 
+                50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+            );
         }
         @keyframes kaleidoscope {
             0% {
                 transform: rotate(0deg) scale(1);
+                filter: hue-rotate(0deg) brightness(1);
             }
             50% {
                 transform: rotate(180deg) scale(1.5);
+                filter: hue-rotate(180deg) brightness(1.2);
             }
             100% {
                 transform: rotate(360deg) scale(1);
+                filter: hue-rotate(360deg) brightness(1);
             }
         }
         .container {
@@ -54,6 +58,8 @@
             padding: 30px;
             text-align: center;
             animation: float 6s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
         }
         @keyframes float {
             0% {
@@ -80,7 +86,7 @@
         .link-button {
             display: block;
             text-decoration: none;
-            background: linear-gradient(135deg, #ff00cc, #ffcc00);
+            background: linear-gradient(135deg, #ff0080, #00bfff, #ffcc00);
             color: #fff;
             font-size: 1.2rem;
             font-weight: bold;
@@ -89,11 +95,12 @@
             border-radius: 50px;
             max-width: 300px;
             box-shadow: 0 10px 40px rgba(255, 128, 255, 0.6);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
         }
         .link-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 60px rgba(255, 128, 255, 0.8);
+            filter: brightness(1.2);
         }
         .link-button:active {
             transform: translateY(2px);
@@ -119,7 +126,7 @@
         <a href="https://www.youtube.com/@the_fronk" class="link-button">YOUTUBE</a>
         <a href="https://www.instagram.com/thefronky/" class="link-button">INSTAGRAM</a>
         <a href="https://discord.gg/s3QzyuvP" class="link-button">DISCORD</a>
-        <a href="https://www.blushiftcreative.com/" class="link-button">BLU SHIFT CREATIVE</a>
+        <a href="https://www.blushiftcreative.com/" class="link-button">BLU</a>
         <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">MERCH</a>
         <div class="footer">
             <p>Fronk Show Productions</p>
