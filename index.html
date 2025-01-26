@@ -17,7 +17,7 @@
             background: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/blue%20alone.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
-            overflow: hidden;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
             height: 100vh;
         }
 
@@ -29,7 +29,6 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            overflow: hidden;
         }
 
         .cloud {
@@ -39,25 +38,17 @@
             background-position: center;
             border-radius: 50%;
             opacity: 0.9;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
             animation: float infinite linear;
         }
 
-        /* Hover and Click Effects */
+        /* Cloud Hover and Click Effects */
         .cloud:hover {
             transform: scale(1.2);
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
         }
 
-        /* Darting Effect */
-        @keyframes dartAway {
-            to {
-                transform: translate(var(--dart-x, 0px), var(--dart-y, 0px)) scale(0.7);
-                opacity: 0.5;
-            }
-        }
-
-        /* Clouds Movement Across Screen */
+        /* Clouds Movement */
         @keyframes float {
             0% {
                 transform: translate(0, 0);
@@ -67,18 +58,40 @@
             }
         }
 
-        /* Main Content Container */
-        .container {
-            background: rgba(30, 30, 30, 0.85);
+        /* Links Styled as Clouds */
+        .link-cloud {
+            display: block;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px 20px;
+            border-radius: 50px;
+            margin: 10px auto;
+            max-width: 300px;
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .link-cloud:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.6);
+        }
+
+        /* Container for Links */
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             width: 90%;
             max-width: 480px;
-            padding: 30px;
             margin: 50px auto;
-            text-align: center;
-            z-index: 1;
-            position: relative;
         }
 
         .profile img {
@@ -86,42 +99,19 @@
             height: 120px;
             border-radius: 50%;
             margin-bottom: 20px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(255, 0, 150, 0.5);
         }
 
         .profile h1 {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #fff;
+            color: #333;
             margin-bottom: 20px;
         }
 
-        /* Buttons */
-        .link-button {
-            display: block;
-            text-decoration: none;
-            background: linear-gradient(135deg, #00ccff, #0066ff);
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 15px;
-            margin: 10px auto;
-            border-radius: 50px;
-            max-width: 300px;
-            box-shadow: 0 10px 40px rgba(0, 204, 255, 0.6);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .link-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 60px rgba(0, 204, 255, 0.8);
-        }
-
         .footer {
-            margin-top: 30px;
+            margin-top: 20px;
             font-size: 0.9rem;
-            color: #aaa;
+            color: #777;
         }
     </style>
     <script>
@@ -141,77 +131,47 @@
                 const cloud = document.createElement('div');
                 cloud.classList.add('cloud');
 
-                // Randomize position, size, and animation speed
-                const size = Math.random() * 100 + 50; // Between 50px and 150px
-                const topPosition = Math.random() * 100; // 0% to 100% vertically
-                const leftPosition = Math.random() * 100; // Random starting X position
-                const duration = Math.random() * 50 + 50; // Between 50s and 100s for slower movement
+                // Randomize position, size, and speed
+                const size = Math.random() * 150 + 50; // 50px to 200px
+                const topPosition = Math.random() * 100; // 0% to 100%
+                const duration = Math.random() * 50 + 50; // 50s to 100s
 
                 cloud.style.width = `${size}px`;
-                cloud.style.height = `${size * 0.6}px`; // Adjust height for proportions
+                cloud.style.height = `${size * 0.6}px`; // Adjust for proportions
                 cloud.style.top = `${topPosition}vh`;
-                cloud.style.left = `${leftPosition}vw`;
+                cloud.style.left = `${Math.random() * 100}vw`; // Random starting position
                 cloud.style.animationDuration = `${duration}s`;
-
-                // Add dart effect on hover or click
-                cloud.addEventListener('mouseenter', (e) => dartCloud(cloud, e));
-                cloud.addEventListener('click', (e) => dartCloud(cloud, e));
 
                 background.appendChild(cloud);
 
-                // Remove cloud after animation to avoid overpopulation
+                // Remove cloud after animation
                 setTimeout(() => cloud.remove(), duration * 1000);
             }
 
-            // Dart effect logic
-            function dartCloud(cloud, event) {
-                const rect = cloud.getBoundingClientRect();
-                const cloudCenterX = rect.left + rect.width / 2;
-                const cloudCenterY = rect.top + rect.height / 2;
-
-                const mouseX = event.clientX;
-                const mouseY = event.clientY;
-
-                const deltaX = cloudCenterX - mouseX;
-                const deltaY = cloudCenterY - mouseY;
-
-                const dartDistance = Math.random() * 300 + 200; // 200px to 500px dart distance
-
-                cloud.style.setProperty('--dart-x', `${deltaX > 0 ? dartDistance : -dartDistance}px`);
-                cloud.style.setProperty('--dart-y', `${deltaY > 0 ? dartDistance : -dartDistance}px`);
-
-                cloud.style.animation = 'dartAway 0.7s ease-out forwards';
-            }
-
-            // Populate initial clouds
-            spawnClouds();
-
-            // Continuously add new clouds
-            setInterval(() => {
-                createCloud();
-            }, 3000); // New cloud every 3 seconds
+            spawnClouds(); // Populate initial clouds
+            setInterval(createCloud, 3000); // Add new clouds every 3 seconds
         });
     </script>
 </head>
 <body>
-    <!-- Background for Clouds -->
+    <!-- Animated Background -->
     <div class="background"></div>
 
     <!-- Main Content -->
-    <div class="container">
+    <div class="link-container">
         <div class="profile">
             <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
             <h1>The Fronk</h1>
         </div>
-        <a href="https://thefronky.github.io/CallFronkRedirect/" class="link-button">CALL FRONK</a>
-        <a href="https://www.tiktok.com/@thefronk" class="link-button">TIKTOK</a>
-        <a href="https://www.twitch.tv/thefronky" class="link-button">TWITCH</a>
-        <a href="https://www.youtube.com/@the_fronk" class="link-button">YOUTUBE</a>
-        <a href="https://www.instagram.com/thefronky/" class="link-button">INSTAGRAM</a>
-        <a href="https://kick.com/the-fronk" class="link-button">KICK</a>
-        <a href="https://discord.gg/s3QzyuvP" class="link-button">24/7 CHAT</a>
-        <a href="https://www.blushiftcreative.com/" class="link-button">BLU</a>
-        <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">MERCH</a>
+        <a href="https://thefronky.github.io/CallFronkRedirect/" class="link-cloud">CALL FRONK</a>
+        <a href="https://www.tiktok.com/@thefronk" class="link-cloud">TIKTOK</a>
+        <a href="https://www.twitch.tv/thefronky" class="link-cloud">TWITCH</a>
+        <a href="https://www.youtube.com/@the_fronk" class="link-cloud">YOUTUBE</a>
+        <a href="https://www.instagram.com/thefronky/" class="link-cloud">INSTAGRAM</a>
+        <a href="https://kick.com/the-fronk" class="link-cloud">KICK</a>
+        <a href="https://discord.gg/s3QzyuvP" class="link-cloud">24/7 CHAT</a>
+        <a href="https://www.blushiftcreative.com/" class="link-cloud">BLU</a>
+        <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-cloud">MERCH</a>
         <div class="footer">
             <p>Fronk Show Productions</p>
         </div>
