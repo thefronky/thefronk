@@ -28,7 +28,6 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            pointer-events: none; /* Allow clicks to pass through */
         }
 
         .cloud {
@@ -39,7 +38,7 @@
             border-radius: 50%;
             opacity: 0.8;
             animation: floatClouds 20s infinite ease-in-out;
-            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .cloud:hover {
@@ -49,7 +48,6 @@
 
         .cloud:active {
             transform: scale(1.1);
-            opacity: 0.5;
         }
 
         /* Keyframes for Cloud Movement */
@@ -62,6 +60,22 @@
             }
             100% {
                 transform: translateY(-10px) scale(1);
+            }
+        }
+
+        /* Cloud Explosion Animation */
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
             }
         }
 
@@ -122,6 +136,18 @@
             color: #aaa;
         }
     </style>
+    <script>
+        // Cloud Poof Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const clouds = document.querySelectorAll('.cloud');
+            clouds.forEach((cloud) => {
+                cloud.addEventListener('click', () => {
+                    cloud.style.animation = 'explode 1s ease-out forwards';
+                    setTimeout(() => cloud.remove(), 1000); // Remove cloud after animation
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <!-- Animated Background -->
@@ -145,10 +171,10 @@
         <a href="https://www.twitch.tv/thefronky" class="link-button">TWITCH</a>
         <a href="https://www.youtube.com/@the_fronk" class="link-button">YOUTUBE</a>
         <a href="https://www.instagram.com/thefronky/" class="link-button">INSTAGRAM</a>
+        <a href="https://kick.com/the-fronk" class="link-button">KICK</a>
         <a href="https://discord.gg/s3QzyuvP" class="link-button">24/7 CHAT</a>
         <a href="https://www.blushiftcreative.com/" class="link-button">BLU</a>
         <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">MERCH</a>
-        <a href="https://kick.com/the-fronk" class="link-button">KICK</a>
         <div class="footer">
             <p>Fronk Show Productions</p>
         </div>
