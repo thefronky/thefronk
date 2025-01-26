@@ -39,13 +39,11 @@
             background-position: center;
             border-radius: 50%;
             opacity: 0.9;
-            width: 150px;
-            height: 90px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-            animation: float 25s infinite linear;
+            animation: float infinite linear;
         }
 
-        /* Cloud Hover and Click Effects */
+        /* Hover and Click Effects */
         .cloud:hover {
             transform: scale(1.2);
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
@@ -129,29 +127,43 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const background = document.querySelector('.background');
+            const cloudCount = 20;
 
-            // Add multiple clouds dynamically
-            for (let i = 0; i < 20; i++) {
+            // Function to spawn clouds dynamically
+            function spawnClouds() {
+                for (let i = 0; i < cloudCount; i++) {
+                    createCloud();
+                }
+            }
+
+            // Function to create a single cloud
+            function createCloud() {
                 const cloud = document.createElement('div');
                 cloud.classList.add('cloud');
 
-                // Randomize starting positions
-                const size = Math.random() * 100 + 80; // Between 80px and 180px
-                const leftPosition = Math.random() * 100; // 0% to 100%
-                const topPosition = Math.random() * 100; // 0% to 100%
+                // Randomize position, size, and animation speed
+                const size = Math.random() * 100 + 50; // Between 50px and 150px
+                const topPosition = Math.random() * 100; // 0% to 100% vertically
+                const leftPosition = Math.random() * 100; // Random starting X position
+                const duration = Math.random() * 50 + 50; // Between 50s and 100s for slower movement
 
                 cloud.style.width = `${size}px`;
                 cloud.style.height = `${size * 0.6}px`; // Adjust height for proportions
                 cloud.style.top = `${topPosition}vh`;
                 cloud.style.left = `${leftPosition}vw`;
+                cloud.style.animationDuration = `${duration}s`;
 
-                // Add darting effect on hover or click
+                // Add dart effect on hover or click
                 cloud.addEventListener('mouseenter', (e) => dartCloud(cloud, e));
                 cloud.addEventListener('click', (e) => dartCloud(cloud, e));
 
                 background.appendChild(cloud);
+
+                // Remove cloud after animation to avoid overpopulation
+                setTimeout(() => cloud.remove(), duration * 1000);
             }
 
+            // Dart effect logic
             function dartCloud(cloud, event) {
                 const rect = cloud.getBoundingClientRect();
                 const cloudCenterX = rect.left + rect.width / 2;
@@ -163,14 +175,21 @@
                 const deltaX = cloudCenterX - mouseX;
                 const deltaY = cloudCenterY - mouseY;
 
-                const dartDistance = Math.random() * 300 + 200; // Random dart distance (200-500px)
+                const dartDistance = Math.random() * 300 + 200; // 200px to 500px dart distance
 
-                // Dart in the opposite direction
                 cloud.style.setProperty('--dart-x', `${deltaX > 0 ? dartDistance : -dartDistance}px`);
                 cloud.style.setProperty('--dart-y', `${deltaY > 0 ? dartDistance : -dartDistance}px`);
 
                 cloud.style.animation = 'dartAway 0.7s ease-out forwards';
             }
+
+            // Populate initial clouds
+            spawnClouds();
+
+            // Continuously add new clouds
+            setInterval(() => {
+                createCloud();
+            }, 3000); // New cloud every 3 seconds
         });
     </script>
 </head>
