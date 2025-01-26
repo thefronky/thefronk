@@ -17,7 +17,7 @@
             background: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/blue%20alone.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow: hidden; /* Prevent scrollbars */
             height: 100vh;
         }
 
@@ -37,47 +37,67 @@
             background-size: cover;
             background-position: center;
             border-radius: 50%;
-            opacity: 0.9;
+            opacity: 0.7;
             transition: transform 0.3s ease, opacity 0.3s ease;
             animation: float infinite linear;
         }
 
-        /* Cloud Hover and Click Effects */
-        .cloud:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Clouds Movement */
+        /* Cloud Movement in All Directions */
         @keyframes float {
-            0% {
+            from {
                 transform: translate(0, 0);
             }
-            100% {
-                transform: translate(100vw, 0);
+            to {
+                transform: translate(var(--move-x), var(--move-y));
             }
         }
 
-        /* Links Styled as Clouds */
+        /* Links Styled as Cloud Assets */
         .link-cloud {
             display: block;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.8);
+            position: relative;
+            background-image: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/cloud%20asset.png');
+            background-size: cover;
+            background-position: center;
             color: #333;
+            text-align: center;
             font-size: 1.2rem;
             font-weight: bold;
-            text-align: center;
             padding: 15px 20px;
-            border-radius: 50px;
-            margin: 10px auto;
-            max-width: 300px;
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 15px auto;
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            text-decoration: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .link-cloud:hover {
             transform: scale(1.1);
-            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.8);
+        }
+
+        .link-cloud:active {
+            animation: dissipate 0.7s ease-out forwards;
+        }
+
+        /* Dissipation Effect */
+        @keyframes dissipate {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.3);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
         }
 
         /* Container for Links */
@@ -88,7 +108,6 @@
             padding: 20px;
             background: rgba(255, 255, 255, 0.3);
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             width: 90%;
             max-width: 480px;
             margin: 50px auto;
@@ -99,6 +118,9 @@
             height: 120px;
             border-radius: 50%;
             margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .profile h1 {
@@ -106,18 +128,20 @@
             font-weight: bold;
             color: #333;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .footer {
             margin-top: 20px;
             font-size: 0.9rem;
             color: #777;
+            text-align: center;
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const background = document.querySelector('.background');
-            const cloudCount = 20;
+            const cloudCount = 25;
 
             // Function to spawn clouds dynamically
             function spawnClouds() {
@@ -131,15 +155,18 @@
                 const cloud = document.createElement('div');
                 cloud.classList.add('cloud');
 
-                // Randomize position, size, and speed
-                const size = Math.random() * 150 + 50; // 50px to 200px
-                const topPosition = Math.random() * 100; // 0% to 100%
+                // Randomize position, size, direction, and speed
+                const size = Math.random() * 100 + 50; // 50px to 150px
+                const directionX = Math.random() * 200 - 100; // -100 to 100 (left or right)
+                const directionY = Math.random() * 200 - 100; // -100 to 100 (up or down)
                 const duration = Math.random() * 50 + 50; // 50s to 100s
 
                 cloud.style.width = `${size}px`;
                 cloud.style.height = `${size * 0.6}px`; // Adjust for proportions
-                cloud.style.top = `${topPosition}vh`;
-                cloud.style.left = `${Math.random() * 100}vw`; // Random starting position
+                cloud.style.top = `${Math.random() * 100}vh`;
+                cloud.style.left = `${Math.random() * 100}vw`;
+                cloud.style.setProperty('--move-x', `${directionX}vw`);
+                cloud.style.setProperty('--move-y', `${directionY}vh`);
                 cloud.style.animationDuration = `${duration}s`;
 
                 background.appendChild(cloud);
