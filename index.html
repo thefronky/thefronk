@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Fronk Links</title>
+    <title>The Fronk</title>
     <style>
         /* General Reset */
         * {
@@ -15,44 +15,42 @@
         body {
             font-family: 'Arial', sans-serif;
             background: #000;
-            color: #f4f4f4;
-            overflow: hidden; /* Ensure no scrollbars appear for the background */
+            color: #fff;
+            overflow: hidden; /* Prevent scrollbars */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        /* Background */
         .background {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw; /* Ensures it covers the entire viewport width */
-            height: 100vh; /* Ensures it covers the entire viewport height */
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
             overflow: hidden;
-            z-index: -1; /* Keeps it behind all other content */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #ff00cc, #8000ff, #00ccff, #001f3f);
+            background: radial-gradient(circle, #00ccff, #ff00cc, #ff99ff, #0000ff);
         }
 
         .layer {
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
             mix-blend-mode: screen;
             animation: rotate-layer 20s infinite linear;
         }
 
         .layer:nth-child(2) {
-            background: radial-gradient(circle, rgba(255, 0, 150, 0.1), transparent);
+            background: radial-gradient(circle, rgba(255, 0, 150, 0.2), transparent);
             animation: rotate-layer-reverse 30s infinite linear;
         }
 
         .layer:nth-child(3) {
-            background: repeating-radial-gradient(circle, #ffcc00, #ff00ff 10px, #0000ff 20px);
+            background: repeating-radial-gradient(circle, #ff99ff, #00ccff 10px, #0000ff 20px);
             animation: rotate-layer 40s infinite linear;
         }
 
@@ -74,6 +72,7 @@
             }
         }
 
+        /* Container */
         .container {
             background: rgba(30, 30, 30, 0.95);
             border-radius: 20px;
@@ -82,8 +81,6 @@
             max-width: 480px;
             padding: 30px;
             text-align: center;
-            overflow-y: auto; /* Allow scrolling for content */
-            max-height: 90vh; /* Prevent container from exceeding viewport height */
         }
 
         .profile img {
@@ -102,10 +99,11 @@
             margin-bottom: 20px;
         }
 
+        /* Buttons */
         .link-button {
             display: block;
             text-decoration: none;
-            background: linear-gradient(135deg, #ff00cc, #ffcc00);
+            background: linear-gradient(135deg, #ff00cc, #00ccff);
             color: #fff;
             font-size: 1.2rem;
             font-weight: bold;
@@ -137,7 +135,7 @@
     </div>
     <div class="container">
         <div class="profile">
-            <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk">
+            <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
             <h1>The Fronk</h1>
         </div>
         <a href="https://thefronky.github.io/CallFronkRedirect/" class="link-button">CALL FRONK</a>
@@ -145,8 +143,7 @@
         <a href="https://www.twitch.tv/thefronky" class="link-button">TWITCH</a>
         <a href="https://www.youtube.com/@the_fronk" class="link-button">YOUTUBE</a>
         <a href="https://www.instagram.com/thefronky/" class="link-button">INSTAGRAM</a>
-        <a href="https://kick.com/the-fronk" class="link-button">KICK</a>
-        <a href="https://discord.gg/s3QzyuvP" class="link-button">DISCORD</a>
+        <a href="https://discord.gg/s3QzyuvP" class="link-button">24/7 CHAT</a>
         <a href="https://www.blushiftcreative.com/" class="link-button">BLU</a>
         <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">MERCH</a>
         <div class="footer">
@@ -155,3 +152,4 @@
     </div>
 </body>
 </html>
+
