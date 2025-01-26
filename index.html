@@ -17,8 +17,8 @@
             background: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/blue%20alone.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
-            overflow: hidden; /* Prevent scrollbars */
             height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
         /* Background for Clouds */
@@ -29,6 +29,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
+            overflow: hidden;
         }
 
         .cloud {
@@ -37,18 +38,27 @@
             background-size: cover;
             background-position: center;
             border-radius: 50%;
-            opacity: 0.7;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.8;
             animation: float infinite linear;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        /* Cloud Movement in All Directions */
+        /* Cloud Movement with Wavering */
         @keyframes float {
-            from {
-                transform: translate(0, 0);
+            0% {
+                transform: translate(-120vw, -5vh) rotate(0deg);
             }
-            to {
-                transform: translate(var(--move-x), var(--move-y));
+            25% {
+                transform: translate(-80vw, -10vh) rotate(5deg);
+            }
+            50% {
+                transform: translate(-40vw, -5vh) rotate(-5deg);
+            }
+            75% {
+                transform: translate(-10vw, 0vh) rotate(2deg);
+            }
+            100% {
+                transform: translate(120vw, 5vh) rotate(0deg);
             }
         }
 
@@ -63,6 +73,7 @@
             text-align: center;
             font-size: 1.2rem;
             font-weight: bold;
+            text-decoration: none;
             padding: 15px 20px;
             margin: 15px auto;
             width: 200px;
@@ -70,8 +81,6 @@
             line-height: 100px;
             border-radius: 50%;
             box-shadow: 0 10px 40px rgba(255, 255, 255, 0.5);
-            overflow: hidden;
-            text-decoration: none;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
@@ -111,6 +120,8 @@
             width: 90%;
             max-width: 480px;
             margin: 50px auto;
+            position: relative;
+            z-index: 10;
         }
 
         .profile img {
@@ -141,7 +152,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const background = document.querySelector('.background');
-            const cloudCount = 25;
+            const cloudCount = 30; // Increase cloud count for more variety
 
             // Function to spawn clouds dynamically
             function spawnClouds() {
@@ -155,23 +166,20 @@
                 const cloud = document.createElement('div');
                 cloud.classList.add('cloud');
 
-                // Randomize position, size, direction, and speed
-                const size = Math.random() * 100 + 50; // 50px to 150px
-                const directionX = Math.random() * 200 - 100; // -100 to 100 (left or right)
-                const directionY = Math.random() * 200 - 100; // -100 to 100 (up or down)
-                const duration = Math.random() * 50 + 50; // 50s to 100s
+                // Randomize position, size, and speed
+                const size = Math.random() * 150 + 50; // 50px to 200px
+                const topPosition = Math.random() * 100; // Random vertical start
+                const duration = Math.random() * 50 + 50; // Between 50s and 100s
 
                 cloud.style.width = `${size}px`;
                 cloud.style.height = `${size * 0.6}px`; // Adjust for proportions
-                cloud.style.top = `${Math.random() * 100}vh`;
-                cloud.style.left = `${Math.random() * 100}vw`;
-                cloud.style.setProperty('--move-x', `${directionX}vw`);
-                cloud.style.setProperty('--move-y', `${directionY}vh`);
+                cloud.style.top = `${topPosition}vh`;
+                cloud.style.left = `-${size}px`; // Start off-screen
                 cloud.style.animationDuration = `${duration}s`;
 
                 background.appendChild(cloud);
 
-                // Remove cloud after animation
+                // Remove cloud after animation ends
                 setTimeout(() => cloud.remove(), duration * 1000);
             }
 
