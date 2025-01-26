@@ -23,7 +23,7 @@
             align-items: center;
         }
 
-        /* Animated Background */
+        /* Background */
         .background {
             position: fixed;
             top: 0;
@@ -32,50 +32,41 @@
             height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: radial-gradient(circle, #001F3F, #0000ff, #ff00cc, #ff99ff);
         }
 
         .cloud {
             position: absolute;
-            width: 150%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(255, 0, 255, 0.3), transparent);
-            mix-blend-mode: screen;
+            width: 150px;
+            height: 100px;
+            background-image: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/cloud%20asset.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
             border-radius: 50%;
-            animation: moveCloud 15s infinite ease-in-out;
+            animation: floatClouds 20s infinite ease-in-out;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        .cloud:nth-child(2) {
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent);
-            animation: moveCloudReverse 20s infinite ease-in-out;
+        .cloud:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
         }
 
-        .cloud:nth-child(3) {
-            background: radial-gradient(circle, rgba(255, 255, 0, 0.3), transparent);
-            animation: moveCloud 25s infinite ease-in-out;
+        .cloud:active {
+            transform: scale(1.1);
+            opacity: 0.5;
         }
 
-        @keyframes moveCloud {
+        /* Keyframes for cloud movement */
+        @keyframes floatClouds {
             0% {
                 transform: translate(-10%, -10%) scale(1);
             }
             50% {
-                transform: translate(10%, 10%) scale(1.5);
+                transform: translate(10%, 10%) scale(1.2);
             }
             100% {
                 transform: translate(-10%, -10%) scale(1);
-            }
-        }
-
-        @keyframes moveCloudReverse {
-            0% {
-                transform: translate(10%, 10%) scale(1);
-            }
-            50% {
-                transform: translate(-10%, -10%) scale(1.5);
-            }
-            100% {
-                transform: translate(10%, 10%) scale(1);
             }
         }
 
@@ -137,9 +128,11 @@
 </head>
 <body>
     <div class="background">
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
+        <!-- Clouds with Different Sizes and Animations -->
+        <div class="cloud" style="top: 10%; left: 5%; width: 200px; height: 120px; animation-duration: 25s;"></div>
+        <div class="cloud" style="top: 30%; left: 60%; width: 150px; height: 100px; animation-duration: 30s;"></div>
+        <div class="cloud" style="top: 50%; left: 20%; width: 180px; height: 110px; animation-duration: 20s;"></div>
+        <div class="cloud" style="top: 70%; left: 80%; width: 120px; height: 80px; animation-duration: 35s;"></div>
     </div>
     <div class="container">
         <div class="profile">
@@ -151,6 +144,7 @@
         <a href="https://www.twitch.tv/thefronky" class="link-button">TWITCH</a>
         <a href="https://www.youtube.com/@the_fronk" class="link-button">YOUTUBE</a>
         <a href="https://www.instagram.com/thefronky/" class="link-button">INSTAGRAM</a>
+        <a href="https://kick.com/the-fronk" class="link-button">KICK</a>
         <a href="https://discord.gg/s3QzyuvP" class="link-button">24/7 CHAT</a>
         <a href="https://www.blushiftcreative.com/" class="link-button">BLU</a>
         <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">MERCH</a>
