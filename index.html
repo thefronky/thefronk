@@ -17,7 +17,7 @@
             background: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/blue%20alone.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
-            overflow: hidden; /* Prevent scrollbars */
+            overflow: hidden;
             height: 100vh;
         }
 
@@ -38,45 +38,16 @@
             background-size: cover;
             background-position: center;
             border-radius: 50%;
-            opacity: 0.8;
-            animation: floatCloud 30s infinite linear;
-            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0.9;
+            width: 150px;
+            height: 90px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
         }
 
-        /* Hover and Click Effects */
+        /* Hover Effect */
         .cloud:hover {
             transform: scale(1.2);
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-        }
-
-        .cloud:active {
-            animation: explode 1s ease-out forwards;
-        }
-
-        /* Cloud Movement */
-        @keyframes floatCloud {
-            0% {
-                transform: translate(-120%, 0) scale(1);
-            }
-            100% {
-                transform: translate(120%, 0) scale(1);
-            }
-        }
-
-        /* Poof Animation */
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(2);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(3);
-                opacity: 0;
-            }
         }
 
         /* Main Content Container */
@@ -145,23 +116,41 @@
                 const cloud = document.createElement('div');
                 cloud.classList.add('cloud');
 
-                // Randomize position, size, and speed
+                // Randomize position
                 const size = Math.random() * 100 + 80; // Between 80px and 180px
-                const topPosition = Math.random() * 100; // Anywhere vertically
-                const animationDuration = Math.random() * 20 + 20; // Between 20s and 40s
+                const leftPosition = Math.random() * 100; // 0% to 100%
+                const topPosition = Math.random() * 100; // 0% to 100%
 
                 cloud.style.width = `${size}px`;
-                cloud.style.height = `${size * 0.6}px`; // Adjust height based on width for proportions
-                cloud.style.top = `${topPosition}%`;
-                cloud.style.animationDuration = `${animationDuration}s`;
+                cloud.style.height = `${size * 0.6}px`; // Adjust height for proportions
+                cloud.style.top = `${topPosition}vh`;
+                cloud.style.left = `${leftPosition}vw`;
 
-                // Add click event to trigger poof animation
-                cloud.addEventListener('click', () => {
-                    cloud.style.animation = 'explode 1s ease-out forwards';
-                    setTimeout(() => cloud.remove(), 1000); // Remove cloud after animation
-                });
+                // Add hover and click interaction
+                cloud.addEventListener('mouseenter', (event) => dartCloud(cloud, event));
+                cloud.addEventListener('click', (event) => dartCloud(cloud, event));
 
                 background.appendChild(cloud);
+            }
+
+            function dartCloud(cloud, event) {
+                const rect = cloud.getBoundingClientRect();
+                const cloudCenterX = rect.left + rect.width / 2;
+                const cloudCenterY = rect.top + rect.height / 2;
+
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+
+                // Calculate direction to dart away from the pointer
+                const directionX = (mouseX - cloudCenterX) > 0 ? -1 : 1;
+                const directionY = (mouseY - cloudCenterY) > 0 ? -1 : 1;
+
+                const dartDistance = Math.random() * 200 + 100; // Between 100px and 300px
+                cloud.style.transform = `translate(${directionX * dartDistance}px, ${directionY * dartDistance}px) scale(0.7)`;
+
+                setTimeout(() => {
+                    cloud.style.transform = '';
+                }, 800);
             }
         });
     </script>
