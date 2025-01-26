@@ -23,7 +23,7 @@
             align-items: center;
         }
 
-        /* Background */
+        /* Animated Background */
         .background {
             position: fixed;
             top: 0;
@@ -32,43 +32,50 @@
             height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: radial-gradient(circle, #00ccff, #ff00cc, #ff99ff, #0000ff);
+            background: radial-gradient(circle, #001F3F, #0000ff, #ff00cc, #ff99ff);
         }
 
-        .layer {
+        .cloud {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 0, 255, 0.3), transparent);
             mix-blend-mode: screen;
-            animation: rotate-layer 20s infinite linear;
+            border-radius: 50%;
+            animation: moveCloud 15s infinite ease-in-out;
         }
 
-        .layer:nth-child(2) {
-            background: radial-gradient(circle, rgba(255, 0, 150, 0.2), transparent);
-            animation: rotate-layer-reverse 30s infinite linear;
+        .cloud:nth-child(2) {
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent);
+            animation: moveCloudReverse 20s infinite ease-in-out;
         }
 
-        .layer:nth-child(3) {
-            background: repeating-radial-gradient(circle, #ff99ff, #00ccff 10px, #0000ff 20px);
-            animation: rotate-layer 40s infinite linear;
+        .cloud:nth-child(3) {
+            background: radial-gradient(circle, rgba(255, 255, 0, 0.3), transparent);
+            animation: moveCloud 25s infinite ease-in-out;
         }
 
-        @keyframes rotate-layer {
-            from {
-                transform: rotate(0deg) scale(1);
+        @keyframes moveCloud {
+            0% {
+                transform: translate(-10%, -10%) scale(1);
             }
-            to {
-                transform: rotate(360deg) scale(1.5);
+            50% {
+                transform: translate(10%, 10%) scale(1.5);
+            }
+            100% {
+                transform: translate(-10%, -10%) scale(1);
             }
         }
 
-        @keyframes rotate-layer-reverse {
-            from {
-                transform: rotate(0deg) scale(1.5);
+        @keyframes moveCloudReverse {
+            0% {
+                transform: translate(10%, 10%) scale(1);
             }
-            to {
-                transform: rotate(-360deg) scale(1);
+            50% {
+                transform: translate(-10%, -10%) scale(1.5);
+            }
+            100% {
+                transform: translate(10%, 10%) scale(1);
             }
         }
 
@@ -81,6 +88,7 @@
             max-width: 480px;
             padding: 30px;
             text-align: center;
+            z-index: 1;
         }
 
         .profile img {
@@ -129,9 +137,9 @@
 </head>
 <body>
     <div class="background">
-        <div class="layer"></div>
-        <div class="layer"></div>
-        <div class="layer"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
     </div>
     <div class="container">
         <div class="profile">
@@ -152,4 +160,3 @@
     </div>
 </body>
 </html>
-
