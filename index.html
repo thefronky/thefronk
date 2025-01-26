@@ -41,13 +41,32 @@
             opacity: 0.9;
             width: 150px;
             height: 90px;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            animation: float 25s infinite linear;
         }
 
-        /* Hover Effect */
+        /* Cloud Hover and Click Effects */
         .cloud:hover {
             transform: scale(1.2);
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Darting Effect */
+        @keyframes dartAway {
+            to {
+                transform: translate(var(--dart-x, 0px), var(--dart-y, 0px)) scale(0.7);
+                opacity: 0.5;
+            }
+        }
+
+        /* Clouds Movement Across Screen */
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(100vw, 0);
+            }
         }
 
         /* Main Content Container */
@@ -84,7 +103,7 @@
         .link-button {
             display: block;
             text-decoration: none;
-            background: linear-gradient(135deg, #ff00cc, #00ccff);
+            background: linear-gradient(135deg, #00ccff, #0066ff);
             color: #fff;
             font-size: 1.2rem;
             font-weight: bold;
@@ -92,13 +111,13 @@
             margin: 10px auto;
             border-radius: 50px;
             max-width: 300px;
-            box-shadow: 0 10px 40px rgba(255, 128, 255, 0.6);
+            box-shadow: 0 10px 40px rgba(0, 204, 255, 0.6);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .link-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 60px rgba(255, 128, 255, 0.8);
+            box-shadow: 0 15px 60px rgba(0, 204, 255, 0.8);
         }
 
         .footer {
@@ -112,11 +131,11 @@
             const background = document.querySelector('.background');
 
             // Add multiple clouds dynamically
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 const cloud = document.createElement('div');
                 cloud.classList.add('cloud');
 
-                // Randomize position
+                // Randomize starting positions
                 const size = Math.random() * 100 + 80; // Between 80px and 180px
                 const leftPosition = Math.random() * 100; // 0% to 100%
                 const topPosition = Math.random() * 100; // 0% to 100%
@@ -126,9 +145,9 @@
                 cloud.style.top = `${topPosition}vh`;
                 cloud.style.left = `${leftPosition}vw`;
 
-                // Add hover and click interaction
-                cloud.addEventListener('mouseenter', (event) => dartCloud(cloud, event));
-                cloud.addEventListener('click', (event) => dartCloud(cloud, event));
+                // Add darting effect on hover or click
+                cloud.addEventListener('mouseenter', (e) => dartCloud(cloud, e));
+                cloud.addEventListener('click', (e) => dartCloud(cloud, e));
 
                 background.appendChild(cloud);
             }
@@ -141,16 +160,16 @@
                 const mouseX = event.clientX;
                 const mouseY = event.clientY;
 
-                // Calculate direction to dart away from the pointer
-                const directionX = (mouseX - cloudCenterX) > 0 ? -1 : 1;
-                const directionY = (mouseY - cloudCenterY) > 0 ? -1 : 1;
+                const deltaX = cloudCenterX - mouseX;
+                const deltaY = cloudCenterY - mouseY;
 
-                const dartDistance = Math.random() * 200 + 100; // Between 100px and 300px
-                cloud.style.transform = `translate(${directionX * dartDistance}px, ${directionY * dartDistance}px) scale(0.7)`;
+                const dartDistance = Math.random() * 300 + 200; // Random dart distance (200-500px)
 
-                setTimeout(() => {
-                    cloud.style.transform = '';
-                }, 800);
+                // Dart in the opposite direction
+                cloud.style.setProperty('--dart-x', `${deltaX > 0 ? dartDistance : -dartDistance}px`);
+                cloud.style.setProperty('--dart-y', `${deltaY > 0 ? dartDistance : -dartDistance}px`);
+
+                cloud.style.animation = 'dartAway 0.7s ease-out forwards';
             }
         });
     </script>
