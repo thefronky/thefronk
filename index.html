@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>The Fronk</title>
     <style>
         /* General Reset */
@@ -12,13 +12,17 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             background: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/blue%20alone.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
-            height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
         /* Background for Clouds */
@@ -42,27 +46,39 @@
             animation: float infinite linear;
         }
 
-        /* Cloud Movement with Wavering */
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            25% {
-                transform: translate(10vw, -5vh) rotate(5deg);
-            }
-            50% {
-                transform: translate(20vw, 0vh) rotate(-5deg);
-            }
-            75% {
-                transform: translate(30vw, 5vh) rotate(3deg);
-            }
-            100% {
-                transform: translate(100vw, 10vh) rotate(0deg);
-            }
+        /* Call Link Container */
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7); /* Light translucent background */
+            border-radius: 20px;
+            width: 90%;
+            max-width: 480px;
+            margin: 50px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
         }
 
-        /* Links Styled as Cloud Assets */
-        .link-cloud {
+        .profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .profile h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Copy Button Styled as Cloud */
+        .copy-button {
             display: block;
             position: relative;
             background-image: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/cloud%20asset.png');
@@ -73,123 +89,66 @@
             font-size: 1.2rem;
             font-weight: bold;
             text-decoration: none;
-            padding: 15px 20px;
+            padding: 20px;
             margin: 15px auto;
             width: 200px;
             height: 100px;
-            line-height: 100px;
+            line-height: 80px;
             border-radius: 50%;
             box-shadow: 0 10px 40px rgba(255, 255, 255, 0.5);
             transition: transform 0.3s ease, opacity 0.3s ease;
+            cursor: pointer;
         }
 
-        .link-cloud:hover {
+        .copy-button:hover {
             transform: scale(1.1);
             box-shadow: 0 15px 50px rgba(255, 255, 255, 0.8);
         }
 
-        /* Container for Links */
-        .link-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            width: 90%;
-            max-width: 480px;
-            margin: 50px auto;
-            position: relative;
-            z-index: 10;
+        .confirmation {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #28a745;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
-        .profile img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+        .confirmation.visible {
+            opacity: 1;
         }
 
-        .profile h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
+        /* Footer */
         .footer {
             margin-top: 20px;
             font-size: 0.9rem;
-            color: #777;
+            color: #555;
             text-align: center;
         }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const background = document.querySelector('.background');
-            const cloudCount = 30; // Increased cloud count for more variety
+        function copyPhoneNumber() {
+            const phoneNumber = "+16194831992";
+            navigator.clipboard.writeText(phoneNumber).then(() => {
+                const confirmationMessage = document.querySelector('.confirmation');
+                confirmationMessage.classList.add('visible');
 
-            // Function to spawn clouds dynamically
-            function spawnClouds() {
-                for (let i = 0; i < cloudCount; i++) {
-                    createCloud(true); // Pass true for initial clouds
-                }
-            }
-
-            // Function to create a single cloud
-            function createCloud(isInitial = false) {
-                const cloud = document.createElement('div');
-                cloud.classList.add('cloud');
-
-                // Randomize size, position, and speed
-                const size = Math.random() * 150 + 50; // 50px to 200px
-                const topPosition = Math.random() * 100; // Random vertical start
-                const duration = Math.random() * 50 + 50; // Between 50s and 100s
-
-                cloud.style.width = `${size}px`;
-                cloud.style.height = `${size * 0.6}px`; // Adjust for proportions
-                cloud.style.top = `${topPosition}vh`;
-
-                // Start off-screen for new clouds, on-screen for initial clouds
-                cloud.style.left = isInitial
-                    ? `${Math.random() * 100}vw`
-                    : `-${size}px`;
-                cloud.style.animationDuration = `${duration}s`;
-
-                background.appendChild(cloud);
-
-                // Remove cloud after animation ends
-                setTimeout(() => cloud.remove(), duration * 1000);
-            }
-
-            spawnClouds(); // Populate initial clouds
-            setInterval(() => createCloud(false), 3000); // Add new clouds every 3 seconds
-        });
+                // Hide confirmation message after 3 seconds
+                setTimeout(() => {
+                    confirmationMessage.classList.remove('visible');
+                }, 3000);
+            });
+        }
     </script>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="background"></div>
-
-    <!-- Main Content -->
     <div class="link-container">
         <div class="profile">
             <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
             <h1>The Fronk</h1>
         </div>
-        <a href="https://thefronky.github.io/CallFronkRedirect/" class="link-cloud">CALL FRONK</a>
-        <a href="https://www.tiktok.com/@thefronk" class="link-cloud">TIKTOK</a>
-        <a href="https://www.twitch.tv/thefronky" class="link-cloud">TWITCH</a>
-        <a href="https://www.youtube.com/@the_fronk" class="link-cloud">YOUTUBE</a>
-        <a href="https://www.instagram.com/thefronky/" class="link-cloud">INSTAGRAM</a>
-        <a href="https://kick.com/the-fronk" class="link-cloud">KICK</a>
-        <a href="https://discord.gg/s3QzyuvP" class="link-cloud">24/7 CHAT</a>
-        <a href="https://www.blushiftcreative.com/" class="link-cloud">BLU</a>
-        <a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-cloud">MERCH</a>
+        <div class="copy-button" onclick="copyPhoneNumber()">📋 COPY NUMBER</div>
+        <div class="confirmation">Number copied to clipboard!</div>
         <div class="footer">
             <p>Fronk Show Productions</p>
         </div>
