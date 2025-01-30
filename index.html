@@ -35,8 +35,6 @@
 
         .cloud {
             position: absolute;
-            width: 120px;
-            height: 80px;
             background-image: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/cloud%20asset.png');
             background-size: contain;
             background-repeat: no-repeat;
@@ -117,18 +115,18 @@
                 cloud.classList.add("cloud");
                 cloud.style.top = (Math.random() * 70 + 20) + "vh"; /* Avoids the logo area */
                 cloud.style.left = "-200px";
-                cloud.style.animationDuration = Math.random() * 20 + 15 + "s";
-                cloud.style.width = Math.random() * 120 + 100 + "px";
-                cloud.style.height = Math.random() * 80 + 50 + "px";
+                cloud.style.animationDuration = Math.random() * 30 + 20 + "s";
+                cloud.style.width = Math.random() * 180 + 120 + "px";
+                cloud.style.height = Math.random() * 120 + 80 + "px";
                 cloudContainer.appendChild(cloud);
                 
                 setTimeout(() => {
                     cloud.remove();
-                }, 30000);
+                }, 50000);
             }
 
-            setInterval(createCloud, 2000);
-            for (let i = 0; i < 10; i++) createCloud();
+            setInterval(createCloud, 1000);
+            for (let i = 0; i < 15; i++) createCloud();
         });
     </script>
 </head>
