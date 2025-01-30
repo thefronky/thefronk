@@ -19,6 +19,7 @@
             color: #fff;
             text-align: center;
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Moving Cloud Background */
@@ -45,8 +46,6 @@
 
         @keyframes float {
             0% { transform: translateX(-200px) translateY(0); opacity: 1; }
-            100% { transform: translateX(110vw) translateY(10vh); opacity: 0.7; }
-        }
             100% { transform: translateX(110vw) translateY(10vh); opacity: 0.7; }
         }
 
@@ -116,183 +115,20 @@
             function createCloud() {
                 const cloud = document.createElement("div");
                 cloud.classList.add("cloud");
-                cloud.style.top = Math.random() * 80 + 10 + "vh";
+                cloud.style.top = (Math.random() * 70 + 20) + "vh"; /* Avoids the logo area */
                 cloud.style.left = "-200px";
-                cloud.style.animationDuration = Math.random() * 30 + 20 + "s";
+                cloud.style.animationDuration = Math.random() * 20 + 15 + "s";
                 cloud.style.width = Math.random() * 120 + 100 + "px";
                 cloud.style.height = Math.random() * 80 + 50 + "px";
                 cloudContainer.appendChild(cloud);
                 
                 setTimeout(() => {
                     cloud.remove();
-                }, 50000);
+                }, 30000);
             }
 
-            setInterval(createCloud, 3000);
-            for (let i = 0; i < 7; i++) createCloud();
-        });
-    </script>
-</head>
-<body>
-    <div class="background"></div>
-    <div class="container">
-        <div class="header">
-            <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
-        </div>
-        
-        <div class="section">
-            <h2>📞 Call Into The Show</h2>
-            <p>To call in, follow Fronk on at least 3 platforms. Choose below.</p>
-            <a href="https://thefronky.github.io/CallFronkRedirect/" class="link-button">Call Fronk</a>
-        </div>
-        
-        <div class="section"><h2>TikTok 🎭</h2><p>Big shows. High-energy. Blink and you’ll miss it.</p><a href="https://www.tiktok.com/@thefronk" class="link-button">Follow on TikTok</a></div>
-        <div class="section"><h2>Twitch ❤️</h2><p>Full landscape resolution. Long-form behind-the-scenes. Relaxed convos after the show.</p><a href="https://www.twitch.tv/thefronky" class="link-button">Watch on Twitch</a></div>
-        <div class="section"><h2>YouTube 📺</h2><p>Long-form content, breakdowns, and highlights.</p><a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe on YouTube</a></div>
-        <div class="section"><h2>Kick 🎲</h2><p>A wilder, unfiltered experience. Anything goes.</p><a href="https://kick.com/the-fronk" class="link-button">Join on Kick</a></div>
-        <div class="section"><h2>Instagram 📌</h2><p>Unhinged story updates. You’ve been warned.</p><a href="https://www.instagram.com/thefronky/" class="link-button">Follow on Instagram</a></div>
-        <div class="section"><h2>24/7 Chat 💬</h2><p>Join the Fronk community on Discord and talk anytime.</p><a href="https://discord.gg/s3QzyuvP" class="link-button">Join the Discord</a></div>
-        <div class="section"><h2>Blu 🌐</h2><p>The secret sauce to live streaming success.</p><a href="https://www.blushiftcreative.com/" class="link-button">Explore Blu</a></div>
-        <div class="section"><h2>Merch 🛍️</h2><p>Get exclusive Fronk gear. Wear the chaos.</p><a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">Shop Merch</a></div>
-        
-        <div class="footer">
-            <p>Fronk Show Productions 2025</p>
-        </div>
-    </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Fronk Universe</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/blue%20alone.png') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            text-align: center;
-            overflow-x: hidden;
-        }
-
-        /* Moving Cloud Background */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .cloud {
-            position: absolute;
-            width: 120px;
-            height: 80px;
-            background-image: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/cloud%20asset.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.8;
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateX(-200px) translateY(0); opacity: 1; }
-            100% { transform: translateX(110vw) translateY(10vh); opacity: 0.7; }
-        }
-            100% { transform: translateX(110vw) translateY(10vh); opacity: 0.7; }
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 50px 20px;
-        }
-
-        .header img {
-            width: 300px;
-            margin-bottom: 20px;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .section:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
-        }
-
-        .section h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .section p {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-bottom: 15px;
-        }
-
-        .link-button {
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: #fff;
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
-            border-radius: 50px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .link-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-        }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cloudContainer = document.querySelector(".background");
-            
-            function createCloud() {
-                const cloud = document.createElement("div");
-                cloud.classList.add("cloud");
-                cloud.style.top = Math.random() * 80 + 10 + "vh";
-                cloud.style.left = "-200px";
-                cloud.style.animationDuration = Math.random() * 30 + 20 + "s";
-                cloud.style.width = Math.random() * 120 + 100 + "px";
-                cloud.style.height = Math.random() * 80 + 50 + "px";
-                cloudContainer.appendChild(cloud);
-                
-                setTimeout(() => {
-                    cloud.remove();
-                }, 50000);
-            }
-
-            setInterval(createCloud, 3000);
-            for (let i = 0; i < 7; i++) createCloud();
+            setInterval(createCloud, 2000);
+            for (let i = 0; i < 10; i++) createCloud();
         });
     </script>
 </head>
