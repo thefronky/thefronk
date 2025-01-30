@@ -61,11 +61,15 @@
 
         .header img {
             width: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
             margin-bottom: 20px;
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 20px;
             padding: 30px;
             margin: 20px 0;
@@ -118,7 +122,7 @@
             function createCloud() {
                 const cloud = document.createElement("div");
                 cloud.classList.add("cloud");
-                cloud.style.top = (Math.random() * 30 + 20) + "vh"; /* Lower clouds */
+                cloud.style.top = (Math.random() * 25 + 15) + "vh"; /* Lower clouds */
                 cloud.style.left = Math.random() * 100 + "vw";
                 cloud.style.animationDuration = Math.random() * 40 + 20 + "s";
                 cloud.style.width = Math.random() * 200 + 100 + "px";
