@@ -22,7 +22,7 @@
             overflow-y: auto;
         }
 
-        /* Moving Cloud Background with Parallax */
+        /* Moving Cloud Background */
         .background {
             position: fixed;
             top: 0;
@@ -51,6 +51,36 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
             margin-bottom: 40px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 10vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 100;
+            font-size: 1rem;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
         }
 
         .section {
@@ -93,43 +123,13 @@
             transform: scale(1.1);
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
         }
-
-        /* iPhone-style Error Message */
-        .popup {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 400px;
-            background: white;
-            color: black;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            z-index: 100;
-            font-size: 1rem;
-        }
-
-        .popup button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            background: #007AFF;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
     </style>
     <script>
         function showPopup(event) {
             event.preventDefault();
             const popup = document.getElementById("popup");
             popup.style.display = "block";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function closePopup() {
