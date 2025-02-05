@@ -34,22 +34,6 @@
             transform: scale(1.2);
         }
 
-        .cloud {
-            position: absolute;
-            background-image: url('https://raw.githubusercontent.com/thefronky/cloud/refs/heads/main/cloud%20asset.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.6;
-            filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.3));
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateX(-200px) translateY(20vh) scale(1); opacity: 1; }
-            50% { transform: translateX(50vw) translateY(25vh) scale(1.1); }
-            100% { transform: translateX(110vw) translateY(30vh) scale(1); opacity: 0.5; }
-        }
-
         .container {
             width: 90%;
             max-width: 1000px;
@@ -110,29 +94,47 @@
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
         }
 
-        .footer {
-            margin-top: 50px;
+        /* iPhone-style Error Message */
+        .popup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 100;
             font-size: 1rem;
-            opacity: 0.8;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cloudContainer = document.querySelector(".background");
-            function createCloud() {
-                const cloud = document.createElement("div");
-                cloud.classList.add("cloud");
-                cloud.style.top = (Math.random() * 25 + 15) + "vh";
-                cloud.style.left = Math.random() * 100 + "vw";
-                cloud.style.animationDuration = Math.random() * 50 + 30 + "s";
-                cloud.style.width = Math.random() * 300 + 150 + "px";
-                cloud.style.height = Math.random() * 180 + 120 + "px";
-                cloudContainer.appendChild(cloud);
-                setTimeout(() => { cloud.remove(); }, 60000);
-            }
-            setInterval(createCloud, 2500);
-            for (let i = 0; i < 25; i++) createCloud();
-        });
+        function showPopup(event) {
+            event.preventDefault();
+            const popup = document.getElementById("popup");
+            popup.style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
     </script>
 </head>
 <body>
@@ -141,16 +143,25 @@
         <div class="header">
             <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
         </div>
-    <div class='links'>
-        <div class='section'><h2>📞 Call Fronk</h2><p>Call in and be part of the show.</p><a href='https://thefronky.github.io/CallFronkRedirect/' class='link-button'>Call Now</a></div>
-        <div class='section'><h2>TikTok 🎭</h2><p>Big shows. High-energy. Blink and you’ll miss it.</p><a href='https://www.tiktok.com/@thefronk' class='link-button'>Follow on TikTok</a></div>
-        <div class='section'><h2>Twitch ❤️</h2><p>Full landscape resolution. Long-form behind-the-scenes. Relaxed convos after the show.</p><a href='https://www.twitch.tv/thefronky' class='link-button'>Watch on Twitch</a></div>
-        <div class='section'><h2>YouTube 📺</h2><p>Long-form content, breakdowns, and highlights.</p><a href='https://www.youtube.com/@the_fronk' class='link-button'>Subscribe on YouTube</a></div>
-        <div class='section'><h2>Instagram 📌</h2><p>Unhinged story updates. You’ve been warned.</p><a href='https://www.instagram.com/thefronky/' class='link-button'>Follow on Instagram</a></div>
-        <div class='section'><h2>Kick 🎲</h2><p>A wilder, unfiltered experience. Anything goes.</p><a href='https://kick.com/the-fronk' class='link-button'>Join on Kick</a></div>
-        <div class='section'><h2>24/7 Chat 💬</h2><p>Join the Fronk community on Discord and talk anytime.</p><a href='https://discord.gg/bsccAeZqVa' class='link-button'>Join the Discord</a></div>
-        <div class='section'><h2>Blu 🌐</h2><p>The secret sauce to live streaming success.</p><a href='https://www.blushiftcreative.com/' class='link-button'>Explore Blu</a></div>
-        <div class='section'><h2>Merch 🛍️</h2><p>Get exclusive Fronk gear. Wear the chaos.</p><a href='https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345' class='link-button'>Shop Merch</a></div>
+        <div class='section' onclick="showPopup(event)">
+            <h2>📞 Call Fronk</h2>
+            <p>Call in and be part of the show.</p>
+            <a href='#' class='link-button'>Call Now</a>
+        </div>
+        <div id="popup" class="popup">
+            <p>Error: You must follow Fronk on 5 social platforms before calling in.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+        <div class='links'>
+            <div class='section'><h2>TikTok 🎭</h2><p>Big shows. High-energy. Blink and you’ll miss it.</p><a href='https://www.tiktok.com/@thefronk' class='link-button'>Follow on TikTok</a></div>
+            <div class='section'><h2>Twitch ❤️</h2><p>Full landscape resolution. Long-form behind-the-scenes. Relaxed convos after the show.</p><a href='https://www.twitch.tv/thefronky' class='link-button'>Watch on Twitch</a></div>
+            <div class='section'><h2>YouTube 📺</h2><p>Long-form content, breakdowns, and highlights.</p><a href='https://www.youtube.com/@the_fronk' class='link-button'>Subscribe on YouTube</a></div>
+            <div class='section'><h2>Instagram 📌</h2><p>Unhinged story updates. You’ve been warned.</p><a href='https://www.instagram.com/thefronky/' class='link-button'>Follow on Instagram</a></div>
+            <div class='section'><h2>Kick 🎲</h2><p>A wilder, unfiltered experience. Anything goes.</p><a href='https://kick.com/the-fronk' class='link-button'>Join on Kick</a></div>
+            <div class='section'><h2>24/7 Chat 💬</h2><p>Join the Fronk community on Discord and talk anytime.</p><a href='https://discord.gg/bsccAeZqVa' class='link-button'>Join the Discord</a></div>
+            <div class='section'><h2>Blu 🌐</h2><p>The secret sauce to live streaming success.</p><a href='https://www.blushiftcreative.com/' class='link-button'>Explore Blu</a></div>
+            <div class='section'><h2>Merch 🛍️</h2><p>Get exclusive Fronk gear. Wear the chaos.</p><a href='https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345' class='link-button'>Shop Merch</a></div>
+        </div>
     </div>
 </body>
 </html>
