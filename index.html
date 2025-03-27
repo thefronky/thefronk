@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Fronk Universe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
         }
 
         body {
-            background: linear-gradient(180deg, #00b7ff, #ff00ff);
+            background: #000; /* Dark base for holographic contrast */
             color: #fff;
             overflow-x: hidden;
             overflow-y: auto;
@@ -30,7 +30,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.7; /* Softer opacity for a cleaner look */
+            opacity: 0.8;
         }
 
         .container {
@@ -51,25 +51,25 @@
             left: 0;
             width: 100%;
             padding: 10px;
-            background: linear-gradient(135deg, rgba(0, 183, 255, 0.5), rgba(255, 0, 255, 0.5)); /* Matches the body gradient */
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(0, 183, 255, 0.3), rgba(255, 0, 255, 0.3));
+            backdrop-filter: blur(15px);
             z-index: 10;
             display: flex;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
         }
 
         .header img {
             width: 100px;
             padding: 5px;
             border-radius: 50%;
-            filter: drop-shadow(0 0 10px #fff);
-            animation: floatSpin 4s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px #fff);
+            animation: hologramFade 3s infinite ease-in-out;
         }
 
-        @keyframes floatSpin {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(15deg); }
+        @keyframes hologramFade {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         .sections {
@@ -80,53 +80,42 @@
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.3); /* Brighter background for better contrast */
-            border: 2px solid #fff; /* White border for a cleaner look */
-            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); /* Glass-like effect */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
             padding: 20px;
             margin: 15px 0;
             width: 100%;
             max-width: 500px;
             position: relative;
-            overflow: hidden;
-            animation: bubbleWobble 5s infinite ease-in-out;
+            backdrop-filter: blur(10px);
+            animation: panelRise 1.5s ease-out forwards;
             transform-origin: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
-        @keyframes bubbleWobble {
-            0%, 100% { transform: translateY(0) scale(1) rotate(0deg); box-shadow: 0 0 15px #fff; }
-            25% { transform: translateY(-10px) scale(1.05) rotate(-5deg); box-shadow: 0 0 20px #00b7ff; }
-            75% { transform: translateY(5px) scale(0.98) rotate(5deg); box-shadow: 0 0 20px #ff00ff; }
+        @keyframes panelRise {
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
-            animation: softSwirl 10s infinite ease-in-out;
-            z-index: -1;
-        }
-
-        @keyframes softSwirl {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(120deg) scale(1.1); }
+        .section:hover {
+            box-shadow: 0 0 30px rgba(0, 183, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.5);
+            transform: scale(1.02);
+            transition: all 0.3s ease;
         }
 
         .section h2 {
-            font-family: 'Bungee Shade', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
             color: #fff;
-            text-shadow: 0 0 5px #00b7ff; /* Reduced shadow for readability */
+            text-shadow: 0 0 5px rgba(0, 183, 255, 0.5);
         }
 
         .section p {
             font-size: 1rem;
             color: #fff;
-            text-shadow: 0 0 2px #ff00ff; /* Minimal shadow for readability */
+            text-shadow: 0 0 2px rgba(255, 0, 255, 0.5);
         }
 
         .link-button {
@@ -140,17 +129,29 @@
             border-radius: 50px;
             box-shadow: 0 0 10px #fff;
             transition: all 0.3s ease;
-            animation: buttonPulse 2s infinite ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes buttonPulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(5deg); }
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: buttonShine 2s infinite linear;
+        }
+
+        @keyframes buttonShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .link-button:hover {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 0 15px #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #fff;
         }
 
         .popup {
@@ -231,7 +232,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // Clean White Cloud Shader Background with Neon Accents
+        // Holographic Cloud Portal Shader Background
         const canvas = document.getElementById("shaderCanvas");
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -261,17 +262,24 @@
                     float t = time * 0.2;
                     vec2 p = uv;
 
-                    // Layered cloud noise for a clean, white look
-                    float clouds = sin(p.x * 3.0 + t) * cos(p.y * 3.0 + t);
-                    clouds += sin(p.x * 6.0 - t * 0.3) * cos(p.y * 6.0 + t * 0.3) * 0.5;
-                    clouds += sin(p.x * 12.0 + t * 0.1) * cos(p.y * 12.0 - t * 0.1) * 0.25;
-                    clouds = smoothstep(0.0, 1.0, clouds);
+                    // Holographic cloud noise with depth
+                    float clouds = sin(p.x * 2.0 + t) * cos(p.y * 2.0 + t);
+                    clouds += sin(p.x * 4.0 - t * 0.3) * cos(p.y * 4.0 + t * 0.3) * 0.5;
+                    clouds += sin(p.x * 8.0 + t * 0.1) * cos(p.y * 8.0 - t * 0.1) * 0.25;
+                    clouds = smoothstep(0.2, 0.8, clouds);
 
-                    // Base white clouds with neon accents
-                    vec3 color = vec3(1.0, 1.0, 1.0); // White clouds
+                    // Holographic effect with white clouds and neon accents
+                    vec3 color = vec3(1.0, 1.0, 1.0); // White base for clouds
                     color = mix(color, vec3(0.0, 0.7, 1.0), clouds * 0.3); // Subtle blue (#00b7ff)
                     color = mix(color, vec3(1.0, 0.0, 1.0), clouds * 0.2); // Subtle pink (#ff00ff)
-                    color += vec3(0.2, 0.2, 0.2) * sin(clouds * 5.0 + t); // Soft glow
+
+                    // Add holographic shimmer
+                    float shimmer = sin(p.x * 10.0 + t * 2.0) * cos(p.y * 10.0 + t * 2.0);
+                    color += vec3(0.2, 0.2, 0.2) * shimmer * clouds;
+
+                    // Add a subtle scanline effect for a sci-fi look
+                    float scanline = sin(uv.y * 100.0 + t * 5.0) * 0.05;
+                    color += vec3(scanline);
 
                     gl_FragColor = vec4(color, 1.0);
                 }
