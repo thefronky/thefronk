@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Fronk Universe - AR Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>The Fronk Universe - Psychedelic Frenzy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,39 +14,23 @@
         }
 
         body {
-            background: linear-gradient(180deg, #0a0f24, #1e2a44);
-            color: #e0e0e0;
+            background: #000;
+            color: #fff;
             overflow-x: hidden;
             overflow-y: auto;
             min-height: 100vh;
             position: relative;
         }
 
-        #particles {
+        /* Shader Canvas Background */
+        #shaderCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            pointer-events: none;
-        }
-
-        .nebula {
-            position: fixed;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.1), transparent);
-            animation: nebulaSwirl 20s infinite linear;
-            z-index: -2;
-            filter: blur(50px);
-            top: -50%;
-            left: -50%;
-        }
-
-        @keyframes nebulaSwirl {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
+            opacity: 0.9;
         }
 
         .container {
@@ -55,6 +39,7 @@
             margin: 0 auto;
             padding: 80px 20px 20px;
             z-index: 1;
+            position: relative;
         }
 
         .header {
@@ -62,10 +47,9 @@
             top: 0;
             width: 100%;
             padding: 10px;
-            background: rgba(11, 19, 43, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(15px);
             z-index: 10;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
             display: flex;
             justify-content: center;
         }
@@ -74,47 +58,67 @@
             width: 100px;
             padding: 5px;
             border-radius: 50%;
-            background: radial-gradient(circle, #ffd700, transparent);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            animation: pulseGlow 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 20px #ff00ff) hue-rotate(90deg);
+            animation: bubbleWobble 3s infinite ease-in-out;
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
-            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 215, 0, 0.8); }
+        @keyframes bubbleWobble {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(0.95) rotate(5deg); }
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #00ffff;
+            border-radius: 25px;
             padding: 20px;
             margin: 15px 0;
-            transition: all 0.3s ease;
-            animation: fadeIn 1s ease-out;
+            position: relative;
+            overflow: hidden;
+            animation: bubblePop 4s infinite ease-in-out;
+            transform-origin: center;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes bubblePop {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px #ff00ff; }
+            50% { transform: scale(1.05) skew(5deg); box-shadow: 0 0 40px #00ffff; }
         }
 
-        .section:hover {
-            transform: scale(1.05);
-            background: rgba(255, 215, 0, 0.1);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 0, 255, 0.3), transparent);
+            animation: swirlDerange 6s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes swirlDerange {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(360deg) scale(1.2); }
         }
 
         .section h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            font-family: 'Bungee', sans-serif;
+            font-size: 1.8rem;
+            color: #ff00ff;
+            text-shadow: 0 0 15px #00ffff, 0 0 30px #ff00ff;
+            animation: textFlicker 0.5s infinite alternate;
+        }
+
+        @keyframes textFlicker {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
 
         .section p {
             font-size: 1rem;
-            opacity: 0.9;
+            color: #fff;
+            text-shadow: 0 0 10px #00ffff;
         }
 
         .link-button {
@@ -123,171 +127,112 @@
             font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
-            color: #0d1b2a;
-            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
             border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 20px #ff00ff;
             transition: all 0.3s ease;
+            animation: buttonPulse 2s infinite;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .link-button:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
-        }
-
-        #arPopup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.95);
-            color: #0d1b2a;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-            animation: popupSpin 0.5s ease-out;
-        }
-
-        @keyframes popupSpin {
-            from { transform: translate(-50%, -50%) rotateY(90deg); }
-            to { transform: translate(-50%, -50%) rotateY(0); }
-        }
-
-        #arPopup button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background: linear-gradient(135deg, #ffd700, #ffaa00);
-            color: #0d1b2a;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        #arPopup button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 0 40px #00ffff;
         }
 
         @media (max-width: 600px) {
             .header img { width: 80px; }
             .container { padding-top: 60px; }
-            .section h2 { font-size: 1.4rem; }
+            .section h2 { font-size: 1.5rem; }
             .section p { font-size: 0.9rem; }
             .link-button { font-size: 1rem; padding: 10px 20px; }
         }
     </style>
 </head>
 <body>
-    <div id="particles"></div>
-    <div class="nebula"></div>
-    <div class="header">
-        <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
-    </div>
+    <canvas id="shaderCanvas"></canvas>
     <div class="container">
-        <div class="sections">
-            <div class="section" id="arSection">
-                <h2>Meet Fronk in AR</h2>
-                <p>Place Fronk in your room with your camera!</p>
-                <a href="#" class="link-button" onclick="startAR(event)">Launch AR</a>
-            </div>
-            <div class="section"><h2>TikTok 🎭</h2><p>High-energy chaos awaits.</p><a href="https://www.tiktok.com/@thefronk" class="link-button">Follow</a></div>
-            <div class="section"><h2>Twitch ❤️</h2><p>Behind-the-scenes madness.</p><a href="https://www.twitch.tv/thefronky" class="link-button">Watch</a></div>
-            <div class="section"><h2>YouTube 📺</h2><p>Breakdowns & highlights.</p><a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe</a></div>
-            <div class="section"><h2>Instagram 📌</h2><p>Unhinged stories.</p><a href="https://www.instagram.com/thefronky/" class="link-button">Follow</a></div>
-            <div class="section"><h2>Kick 🎲</h2><p>Wild, unfiltered vibes.</p><a href="https://kick.com/the-fronk" class="link-button">Join</a></div>
-            <div class="section"><h2>Discord 💬</h2><p>24/7 Fronk squad.</p><a href="https://discord.gg/bsccAeZqVa" class="link-button">Chat</a></div>
-            <div class="section"><h2>Blu 🌐</h2><p>Streaming secrets.</p><a href="https://www.blushiftcreative.com/" class="link-button">Explore</a></div>
-            <div class="section"><h2>Merch 🛍️</h2><p>Wear the chaos.</p><a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">Shop</a></div>
+        <div class="header">
+            <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
         </div>
-        <div id="arPopup" class="popup">
-            <p>Your browser needs WebXR support for AR. Try Chrome on Android or enable experimental features in Safari (iOS).</p>
-            <button onclick="closeARPopup()">OK</button>
+        <div class="sections">
+            <div class="section">
+                <h2>Welcome to the Frenzy</h2>
+                <p>Dive into the deranged bubble trip of Fronk’s universe!</p>
+            </div>
+            <div class="section"><h2>TikTok 🎭</h2><p>Trippy chaos in bite-sized bursts.</p><a href="https://www.tiktok.com/@thefronk" class="link-button">Follow</a></div>
+            <div class="section"><h2>Twitch ❤️</h2><p>Live meltdowns and warped vibes.</p><a href="https://www.twitch.tv/thefronky" class="link-button">Watch</a></div>
+            <div class="section"><h2>YouTube 📺</h2><p>Psychedelic breakdowns & highlights.</p><a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe</a></div>
+            <div class="section"><h2>Instagram 📌</h2><p>Stories that melt your brain.</p><a href="https://www.instagram.com/thefronky/" class="link-button">Follow</a></div>
+            <div class="section"><h2>Kick 🎲</h2><p>Unhinged, bubbly madness.</p><a href="https://kick.com/the-fronk" class="link-button">Join</a></div>
+            <div class="section"><h2>Discord 💬</h2><p>24/7 psychedelic squad.</p><a href="https://discord.gg/bsccAeZqVa" class="link-button">Chat</a></div>
+            <div class="section"><h2>Blu 🌐</h2><p>Trippy streaming secrets.</p><a href="https://www.blushiftcreative.com/" class="link-button">Explore</a></div>
+            <div class="section"><h2>Merch 🛍️</h2><p>Wear the deranged drip.</p><a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">Shop</a></div>
         </div>
     </div>
 
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // Particle Background
-        particlesJS("particles", {
-            particles: {
-                number: { value: 100, density: { enable: true, value_area: 800 } },
-                color: { value: ["#ffd700", "#ff00ff", "#00ffff"] },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                move: { enable: true, speed: 2, direction: "random", random: true }
+        // Psychedelic Shader Background
+        const canvas = document.getElementById("shaderCanvas");
+        const scene = new THREE.Scene();
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const renderer = new THREE.WebGLRenderer({ canvas });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const geometry = new THREE.PlaneGeometry(2, 2);
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 0.0 },
+                resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
             },
-            interactivity: {
-                events: { onhover: { enable: true, mode: "repulse" }, ontouch: { enable: true, mode: "push" } }
-            }
+            vertexShader: `
+                void main() {
+                    gl_Position = vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform vec2 resolution;
+
+                void main() {
+                    vec2 uv = gl_FragCoord.xy / resolution.xy;
+                    uv -= 0.5;
+                    uv *= 2.0;
+
+                    float t = time * 0.5;
+                    vec3 color = vec3(0.0);
+                    float d = length(uv);
+                    float bubbles = sin(d * 10.0 - t) + cos(uv.x * 15.0 + t) + sin(uv.y * 20.0 + t);
+                    color += vec3(sin(bubbles + t), cos(bubbles + t * 1.5), sin(bubbles + t * 2.0));
+                    color *= smoothstep(0.2, 0.8, abs(sin(d * 5.0 - t)));
+                    color += vec3(0.5, 0.2, 0.7) * (1.0 - d);
+
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `
         });
 
-        // AR Functionality with A-Frame
-        function startAR(event) {
-            event.preventDefault();
-            if (!navigator.xr) {
-                document.getElementById("arPopup").style.display = "block";
-                return;
-            }
+        const plane = new THREE.Mesh(geometry, material);
+        scene.add(plane);
 
-            // Dynamically inject AR scene
-            const scene = document.createElement("a-scene");
-            scene.setAttribute("embedded", "");
-            scene.setAttribute("xr-mode-ui", "enabled: true");
-            scene.setAttribute("arjs", "sourceType: webcam; debugUIEnabled: false;");
-
-            // Plane for hit-testing (where Fronk will be placed)
-            const plane = document.createElement("a-plane");
-            plane.setAttribute("position", "0 0 -2");
-            plane.setAttribute("rotation", "-90 0 0");
-            plane.setAttribute("width", "4");
-            plane.setAttribute("height", "4");
-            plane.setAttribute("material", "color: #ffd700; opacity: 0.2; visible: false");
-            plane.setAttribute("ar-hit-test", "");
-
-            // Fronk Entity (using your logo as a spinning disc for now)
-            const fronk = document.createElement("a-entity");
-            fronk.setAttribute("geometry", "primitive: cylinder; radius: 0.5; height: 0.1");
-            fronk.setAttribute("material", `src: url(https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png); transparent: true`);
-            fronk.setAttribute("position", "0 0.05 0");
-            fronk.setAttribute("animation", "property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear");
-            fronk.setAttribute("arjs-anchor", "target: plane");
-
-            // Interactive Hotspot (example: TikTok link)
-            const hotspot = document.createElement("a-sphere");
-            hotspot.setAttribute("radius", "0.1");
-            hotspot.setAttribute("position", "0.5 0.5 0");
-            hotspot.setAttribute("material", "color: #ff00ff");
-            hotspot.setAttribute("event-set__click", "_event: click; _target: window.location.href='https://www.tiktok.com/@thefronk'");
-            fronk.appendChild(hotspot);
-
-            plane.appendChild(fronk);
-            scene.appendChild(plane);
-            document.body.appendChild(scene);
-
-            // Start AR session
-            scene.addEventListener("loaded", () => {
-                scene.setAttribute("vr-mode-ui", "enabled: false"); // Hide VR button, focus on AR
-                document.querySelector(".container").style.display = "none"; // Hide main content during AR
-            });
-
-            // Exit AR handler
-            scene.addEventListener("exit-xr", () => {
-                document.body.removeChild(scene);
-                document.querySelector(".container").style.display = "block";
-            });
+        function animate() {
+            material.uniforms.time.value += 0.05;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
         }
+        animate();
 
-        function closeARPopup() {
-            document.getElementById("arPopup").style.display = "none";
-        }
+        // Resize handler
+        window.addEventListener("resize", () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+        });
     </script>
 </body>
 </html>
