@@ -16,8 +16,9 @@
         body {
             background: linear-gradient(180deg, #0a0f24, #1e2a44);
             color: #e0e0e0;
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
             position: relative;
             perspective: 1000px;
         }
@@ -35,30 +36,31 @@
 
         /* Animated Nebula */
         .nebula {
-            position: absolute;
+            position: fixed;
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.1), transparent);
             animation: nebulaSwirl 20s infinite linear;
             z-index: -1;
             filter: blur(50px);
+            top: -50%;
+            left: -50%;
         }
 
         @keyframes nebulaSwirl {
-            0% { transform: translate(-25%, -25%) rotate(0deg); }
-            100% { transform: translate(-25%, -25%) rotate(360deg); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
         }
 
         .container {
             position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 20px 20px;
             transform-style: preserve-3d;
             transition: transform 0.1s ease;
+            z-index: 1;
         }
 
         .header {
@@ -70,10 +72,12 @@
             backdrop-filter: blur(15px);
             z-index: 10;
             box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            display: flex;
+            justify-content: center;
         }
 
         .header img {
-            width: 120px;
+            width: 100px;
             padding: 5px;
             border-radius: 50%;
             background: radial-gradient(circle, #ffd700, transparent);
@@ -88,21 +92,19 @@
 
         /* AR Game Canvas */
         #gameCanvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 5;
             display: none;
+            pointer-events: none;
         }
 
         .sections {
             position: relative;
-            width: 90%;
-            max-width: 600px;
             transform-style: preserve-3d;
-            z-index: 1;
         }
 
         .section {
@@ -197,7 +199,8 @@
         }
 
         @media (max-width: 600px) {
-            .header img { width: 100px; }
+            .header img { width: 80px; }
+            .container { padding-top: 60px; }
             .section h2 { font-size: 1.4rem; }
             .section p { font-size: 0.9rem; }
             .link-button { font-size: 1rem; padding: 10px 20px; }
@@ -208,10 +211,10 @@
     <div id="particles"></div>
     <div class="nebula"></div>
     <canvas id="gameCanvas"></canvas>
+    <div class="header">
+        <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
+    </div>
     <div class="container">
-        <div class="header">
-            <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
-        </div>
         <div class="sections">
             <div class="section" onclick="startGame()">
                 <h2>Enter the Universe</h2>
@@ -236,7 +239,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        // Particle Background (Inspired by Japanese glitch art)
+        // Particle Background
         particlesJS("particles", {
             particles: {
                 number: { value: 100, density: { enable: true, value_area: 800 } },
@@ -247,7 +250,7 @@
                 move: { enable: true, speed: 2, direction: "random", random: true }
             },
             interactivity: {
-                events: { onhover: { enable: true, mode: "repulse" } }
+                events: { onhover: { enable: true, mode: "repulse" }, ontouch: { enable: true, mode: "push" } }
             }
         });
 
@@ -262,14 +265,20 @@
         function startGame() {
             if (!gameActive) {
                 document.getElementById("popup").style.display = "block";
-                window.requestPermission?.("gyroscope").then(permission => {
-                    if (permission === "granted") {
-                        initGame();
-                    }
-                }).catch(() => {
-                    // Fallback: Assume permission if API unavailable
-                    initGame();
-                });
+                if (typeof DeviceOrientationEvent.requestPermission === "function") {
+                    DeviceOrientationEvent.requestPermission()
+                        .then(permission => {
+                            if (permission === "granted") {
+                                initGame();
+                            }
+                        })
+                        .catch(() => {
+                            // Fallback: Assume permission if API unavailable
+                            initGame();
+                        });
+                } else {
+                    initGame(); // Older browsers without permission prompt
+                }
             }
         }
 
@@ -291,20 +300,18 @@
         function handleGyro(event) {
             const beta = event.beta || 0;  // Tilt front-to-back
             const gamma = event.gamma || 0; // Tilt side-to-side
-            orbX += gamma * 2; // Adjust sensitivity
+            orbX += gamma * 2;
             orbY += beta * 0.5;
             orbX = Math.max(0, Math.min(canvas.width, orbX));
             orbY = Math.max(0, Math.min(canvas.height, orbY));
-            document.querySelector(".container").style.transform = `rotateX(${beta / 2}deg) rotateY(${gamma / 2}deg)`;
+            document.querySelector(".container").style.transform = `rotateX(${beta / 4}deg) rotateY(${gamma / 4}deg)`;
         }
 
         function animateGame() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Draw Orb (Your Logo)
             const img = new Image();
             img.src = "https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png";
             ctx.drawImage(img, orbX - 25, orbY - 25, 50, 50);
-            // Draw Obstacles
             obstacles.forEach(o => {
                 ctx.beginPath();
                 ctx.arc(o.x, o.y, o.radius, 0, Math.PI * 2);
@@ -322,11 +329,17 @@
             gameActive = false;
             canvas.style.display = "none";
             window.removeEventListener("deviceorientation", handleGyro);
+            document.querySelector(".container").style.transform = "none";
         }
 
         function closePopup() {
             document.getElementById("popup").style.display = "none";
         }
+
+        // Ensure smooth scrolling behavior
+        window.addEventListener("touchmove", () => {
+            if (!gameActive) document.body.style.overflowY = "auto";
+        });
     </script>
 </body>
 </html>
