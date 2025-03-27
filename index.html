@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Fronk Universe - Bubbly Bliss</title>
+    <title>The Fronk Universe - Cloudy Bliss</title>
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -30,14 +30,14 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.9;
+            opacity: 0.6; /* Softer opacity for a calmer look */
         }
 
         .container {
             width: 90%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 120px 20px 20px; /* Increased padding to avoid header overlap */
+            padding: 120px 20px 20px; /* Ensures no overlap with header */
             z-index: 1;
             position: relative;
             display: flex;
@@ -56,20 +56,20 @@
             z-index: 10;
             display: flex;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.5);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.3);
         }
 
         .header img {
             width: 100px;
             padding: 5px;
             border-radius: 50%;
-            filter: drop-shadow(0 0 15px #ff00ff);
-            animation: floatHappy 4s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px #ff00ff);
+            animation: floatHappy 5s infinite ease-in-out;
         }
 
         @keyframes floatHappy {
-            0%, 100% { transform: translateY(0) rotate(2deg); }
-            50% { transform: translateY(-15px) rotate(-2deg); }
+            0%, 100% { transform: translateY(0) rotate(1deg); }
+            50% { transform: translateY(-10px) rotate(-1deg); }
         }
 
         .sections {
@@ -80,7 +80,7 @@
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             border: 2px solid #ff00ff;
             border-radius: 30px;
             padding: 20px;
@@ -89,13 +89,13 @@
             max-width: 500px;
             position: relative;
             overflow: hidden;
-            animation: bubbleFloat 5s infinite ease-in-out;
+            animation: cloudDrift 6s infinite ease-in-out;
             transform-origin: center;
         }
 
-        @keyframes bubbleFloat {
-            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 20px #00b7ff; }
-            50% { transform: translateY(-10px) scale(1.03); box-shadow: 0 0 30px #ff00ff; }
+        @keyframes cloudDrift {
+            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 15px #00b7ff; }
+            50% { transform: translateY(-5px) scale(1.02); box-shadow: 0 0 20px #ff00ff; }
         }
 
         .section::before {
@@ -105,33 +105,33 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 183, 255, 0.4), transparent);
-            animation: softSwirl 8s infinite ease-in-out;
+            background: radial-gradient(circle, rgba(0, 183, 255, 0.3), transparent);
+            animation: softSwirl 12s infinite ease-in-out;
             z-index: -1;
         }
 
         @keyframes softSwirl {
             0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
+            50% { transform: rotate(90deg) scale(1.05); }
         }
 
         .section h2 {
             font-family: 'Bungee Shade', sans-serif;
             font-size: 1.8rem;
             color: #ff00ff;
-            text-shadow: 0 0 10px #00b7ff, 0 0 20px #ff00ff;
-            animation: textFloat 3s infinite ease-in-out;
+            text-shadow: 0 0 5px #00b7ff, 0 0 10px #ff00ff;
+            animation: textFloat 4s infinite ease-in-out;
         }
 
         @keyframes textFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-3px); }
         }
 
         .section p {
             font-size: 1rem;
             color: #fff;
-            text-shadow: 0 0 5px #00b7ff;
+            text-shadow: 0 0 3px #00b7ff;
         }
 
         .link-button {
@@ -143,19 +143,19 @@
             color: #fff;
             background: linear-gradient(135deg, #ff00ff, #00b7ff);
             border-radius: 50px;
-            box-shadow: 0 0 15px #ff00ff;
+            box-shadow: 0 0 10px #ff00ff;
             transition: all 0.3s ease;
-            animation: buttonBob 2s infinite ease-in-out;
+            animation: buttonBob 3s infinite ease-in-out;
         }
 
         @keyframes buttonBob {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-3px); }
         }
 
         .link-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px #00b7ff;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00b7ff;
         }
 
         .popup {
@@ -206,16 +206,6 @@
             .section { max-width: 100%; }
         }
     </style>
-    <script>
-        function showPopup(event) {
-            event.preventDefault();
-            document.getElementById("popup").style.display = "block";
-        }
-
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-        }
-    </script>
 </head>
 <body>
     <canvas id="shaderCanvas"></canvas>
@@ -230,14 +220,14 @@
                 <a href="#" class="link-button">Join Fronk</a>
             </div>
             <div class="section">
-                <h2>Fronk’s Bubbly Bliss</h2>
-                <p>Floating through a neon dream—too happy to blink!</p>
+                <h2>Fronk’s Cloudy Bliss</h2>
+                <p>Drifting on a neon cloud—too happy to blink!</p>
             </div>
-            <div class="section"><h2>TikTok 🎭</h2><p>Bouncing giggles in a pink haze.</p><a href="https://www.tiktok.com/@thefronk" class="link-button">Follow</a></div>
+            <div class="section"><h2>TikTok 🎭</h2><p>Soft giggles in a pink haze.</p><a href="https://www.tiktok.com/@thefronk" class="link-button">Follow</a></div>
             <div class="section"><h2>Twitch ❤️</h2><p>Live fluff on a blue cloud.</p><a href="https://www.twitch.tv/thefronky" class="link-button">Watch</a></div>
-            <div class="section"><h2>YouTube 📺</h2><p>Trippy tales with a grin.</p><a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe</a></div>
-            <div class="section"><h2>Instagram 📌</h2><p>Stories dripping in bliss.</p><a href="https://www.instagram.com/thefronky/" class="link-button">Follow</a></div>
-            <div class="section"><h2>Kick 🎲</h2><p>Overly happy chaos.</p><a href="https://kick.com/the-fronk" class="link-button">Join</a></div>
+            <div class="section"><h2>YouTube 📺</h2><p>Dreamy tales with a grin.</p><a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe</a></div>
+            <div class="section"><h2>Instagram 📌</h2><p>Stories floating in bliss.</p><a href="https://www.instagram.com/thefronky/" class="link-button">Follow</a></div>
+            <div class="section"><h2>Kick 🎲</h2><p>Overly happy drifts.</p><a href="https://kick.com/the-fronk" class="link-button">Join</a></div>
             <div class="section"><h2>Discord 💬</h2><p>Floaty chat vibes 24/7.</p><a href="https://discord.gg/bsccAeZqVa" class="link-button">Chat</a></div>
             <div class="section"><h2>Blu 🌐</h2><p>Secrets in a neon glow.</p><a href="https://www.blushiftcreative.com/" class="link-button">Explore</a></div>
             <div class="section"><h2>Merch 🛍️</h2><p>Wear the medicated shine.</p><a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">Shop</a></div>
@@ -250,7 +240,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // Trippy Swirling Pipe Shader Background
+        // Calm Cloud Shader Background
         const canvas = document.getElementById("shaderCanvas");
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -277,26 +267,19 @@
                     uv -= 0.5;
                     uv *= 2.0;
 
-                    float t = time * 0.5;
+                    float t = time * 0.1; // Slower time for a calmer effect
                     vec2 p = uv;
                     float d = length(p);
-                    float angle = atan(p.y, p.x) + t * 0.5;
-                    float radius = d + sin(t) * 0.2;
 
-                    // Create swirling tunnel effect
-                    float swirl = sin(radius * 10.0 - t * 2.0 + angle * 5.0);
-                    float pipe = smoothstep(0.3, 0.5, abs(swirl));
-                    vec3 color = vec3(0.0);
+                    // Soft cloud-like noise
+                    float clouds = sin(p.x * 3.0 + t) * cos(p.y * 3.0 + t);
+                    clouds += sin(p.x * 6.0 - t * 0.5) * cos(p.y * 6.0 + t * 0.5) * 0.5;
+                    clouds = smoothstep(-0.2, 0.8, clouds);
 
-                    // Neon colors: blue, pink, yellow, green
-                    color += vec3(0.0, 0.7, 1.0) * (1.0 - pipe); // Blue (#00b7ff)
-                    color += vec3(1.0, 0.0, 1.0) * pipe * sin(t + angle); // Pink (#ff00ff)
-                    color += vec3(1.0, 1.0, 0.0) * sin(radius * 15.0 - t * 3.0); // Yellow
-                    color += vec3(0.0, 1.0, 0.5) * cos(radius * 20.0 + t * 2.0 + angle * 3.0); // Green
-
-                    // Add cloud-like softness
-                    float clouds = sin(d * 5.0 + t) * cos(d * 5.0 - t);
-                    color += vec3(0.2, 0.2, 0.2) * clouds;
+                    // Gentle color blend
+                    vec3 color = vec3(0.0, 0.7, 1.0); // Blue (#00b7ff)
+                    color = mix(color, vec3(1.0, 0.0, 1.0), clouds * 0.5); // Pink (#ff00ff)
+                    color += vec3(0.1, 0.1, 0.1) * sin(d * 5.0 + t); // Subtle glow
 
                     gl_FragColor = vec4(color, 1.0);
                 }
@@ -307,7 +290,7 @@
         scene.add(plane);
 
         function animate() {
-            material.uniforms.time.value += 0.03;
+            material.uniforms.time.value += 0.02; // Slower animation
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
@@ -318,6 +301,16 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
         });
+
+        // Popup Functions
+        function showPopup(event) {
+            event.preventDefault();
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
     </script>
 </body>
 </html>
