@@ -14,7 +14,7 @@
         }
 
         body {
-            background: linear-gradient(180deg, #00b7ff, #ff00ff); /* Stronger blue and pink from your logo */
+            background: linear-gradient(180deg, #00b7ff, #ff00ff);
             color: #fff;
             overflow-x: hidden;
             overflow-y: auto;
@@ -30,14 +30,14 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         .container {
             width: 90%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 80px 20px 20px;
+            padding: 120px 20px 20px; /* Increased padding to avoid header overlap */
             z-index: 1;
             position: relative;
             display: flex;
@@ -51,19 +51,19 @@
             left: 0;
             width: 100%;
             padding: 10px;
-            background: rgba(0, 183, 255, 0.7); /* Strong blue from your cloud image */
+            background: rgba(0, 183, 255, 0.7);
             backdrop-filter: blur(10px);
             z-index: 10;
             display: flex;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.5); /* Strong pink shadow */
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.5);
         }
 
         .header img {
             width: 100px;
             padding: 5px;
             border-radius: 50%;
-            filter: drop-shadow(0 0 15px #ff00ff); /* Matching your original pink */
+            filter: drop-shadow(0 0 15px #ff00ff);
             animation: floatHappy 4s infinite ease-in-out;
         }
 
@@ -81,7 +81,7 @@
 
         .section {
             background: rgba(255, 255, 255, 0.15);
-            border: 2px solid #ff00ff; /* Vibrant pink from your original code */
+            border: 2px solid #ff00ff;
             border-radius: 30px;
             padding: 20px;
             margin: 15px 0;
@@ -105,7 +105,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 183, 255, 0.4), transparent); /* Strong blue swirl */
+            background: radial-gradient(circle, rgba(0, 183, 255, 0.4), transparent);
             animation: softSwirl 8s infinite ease-in-out;
             z-index: -1;
         }
@@ -118,8 +118,8 @@
         .section h2 {
             font-family: 'Bungee Shade', sans-serif;
             font-size: 1.8rem;
-            color: #ff00ff; /* Vibrant pink from your original */
-            text-shadow: 0 0 10px #00b7ff, 0 0 20px #ff00ff; /* Blue and pink glow */
+            color: #ff00ff;
+            text-shadow: 0 0 10px #00b7ff, 0 0 20px #ff00ff;
             animation: textFloat 3s infinite ease-in-out;
         }
 
@@ -131,7 +131,7 @@
         .section p {
             font-size: 1rem;
             color: #fff;
-            text-shadow: 0 0 5px #00b7ff; /* Strong blue shadow */
+            text-shadow: 0 0 5px #00b7ff;
         }
 
         .link-button {
@@ -141,7 +141,7 @@
             font-weight: 600;
             text-decoration: none;
             color: #fff;
-            background: linear-gradient(135deg, #ff00ff, #00b7ff); /* Matching your original gradient */
+            background: linear-gradient(135deg, #ff00ff, #00b7ff);
             border-radius: 50px;
             box-shadow: 0 0 15px #ff00ff;
             transition: all 0.3s ease;
@@ -158,15 +158,64 @@
             box-shadow: 0 0 25px #00b7ff;
         }
 
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #000;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: popupFade 0.3s ease-in-out;
+        }
+
+        @keyframes popupFade {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: #00b7ff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .popup button:hover {
+            transform: scale(1.05);
+        }
+
         @media (max-width: 600px) {
             .header img { width: 80px; }
-            .container { padding-top: 60px; }
+            .container { padding-top: 100px; }
             .section h2 { font-size: 1.5rem; }
             .section p { font-size: 0.9rem; }
             .link-button { font-size: 1rem; padding: 10px 20px; }
             .section { max-width: 100%; }
         }
     </style>
+    <script>
+        function showPopup(event) {
+            event.preventDefault();
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
 </head>
 <body>
     <canvas id="shaderCanvas"></canvas>
@@ -175,6 +224,11 @@
             <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
         </div>
         <div class="sections">
+            <div class="section" onclick="showPopup(event)">
+                <h2>Join Show</h2>
+                <p>Join Fronk while he's LIVE</p>
+                <a href="#" class="link-button">Join Fronk</a>
+            </div>
             <div class="section">
                 <h2>Fronk’s Bubbly Bliss</h2>
                 <p>Floating through a neon dream—too happy to blink!</p>
@@ -188,11 +242,15 @@
             <div class="section"><h2>Blu 🌐</h2><p>Secrets in a neon glow.</p><a href="https://www.blushiftcreative.com/" class="link-button">Explore</a></div>
             <div class="section"><h2>Merch 🛍️</h2><p>Wear the medicated shine.</p><a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">Shop</a></div>
         </div>
+        <div id="popup" class="popup">
+            <p>Error: You must follow Fronk on 2 social platforms first.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // Psychedelic Shader Background with Stronger Colors
+        // Trippy Swirling Pipe Shader Background
         const canvas = document.getElementById("shaderCanvas");
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -219,12 +277,26 @@
                     uv -= 0.5;
                     uv *= 2.0;
 
-                    float t = time * 0.3;
-                    vec3 color = vec3(0.0, 0.7, 1.0); // Strong blue (#00b7ff)
-                    float bubbles = sin(uv.x * 5.0 + t) + cos(uv.y * 5.0 + t);
-                    color += vec3(1.0, 0.0, 1.0) * smoothstep(0.2, 0.8, sin(bubbles * 3.0 + t)); // Strong pink (#ff00ff)
-                    color *= 0.9 + 0.3 * sin(t + length(uv) * 8.0);
-                    color = mix(color, vec3(0.0, 0.9, 1.0), 0.4); // Slightly brighter blue blend
+                    float t = time * 0.5;
+                    vec2 p = uv;
+                    float d = length(p);
+                    float angle = atan(p.y, p.x) + t * 0.5;
+                    float radius = d + sin(t) * 0.2;
+
+                    // Create swirling tunnel effect
+                    float swirl = sin(radius * 10.0 - t * 2.0 + angle * 5.0);
+                    float pipe = smoothstep(0.3, 0.5, abs(swirl));
+                    vec3 color = vec3(0.0);
+
+                    // Neon colors: blue, pink, yellow, green
+                    color += vec3(0.0, 0.7, 1.0) * (1.0 - pipe); // Blue (#00b7ff)
+                    color += vec3(1.0, 0.0, 1.0) * pipe * sin(t + angle); // Pink (#ff00ff)
+                    color += vec3(1.0, 1.0, 0.0) * sin(radius * 15.0 - t * 3.0); // Yellow
+                    color += vec3(0.0, 1.0, 0.5) * cos(radius * 20.0 + t * 2.0 + angle * 3.0); // Green
+
+                    // Add cloud-like softness
+                    float clouds = sin(d * 5.0 + t) * cos(d * 5.0 - t);
+                    color += vec3(0.2, 0.2, 0.2) * clouds;
 
                     gl_FragColor = vec4(color, 1.0);
                 }
