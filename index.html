@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Fronk Universe - Psychedelic Frenzy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>The Fronk Universe - Bubbly Bliss</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
         }
 
         body {
-            background: #000;
+            background: linear-gradient(180deg, #b3d8ff, #ffb6c1);
             color: #fff;
             overflow-x: hidden;
             overflow-y: auto;
@@ -30,7 +30,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.9;
+            opacity: 0.7;
         }
 
         .container {
@@ -40,49 +40,62 @@
             padding: 80px 20px 20px;
             z-index: 1;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(15px);
+            background: rgba(179, 216, 255, 0.8);
+            backdrop-filter: blur(10px);
             z-index: 10;
             display: flex;
             justify-content: center;
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.5);
         }
 
         .header img {
             width: 100px;
             padding: 5px;
             border-radius: 50%;
-            filter: drop-shadow(0 0 20px #ff00ff) hue-rotate(90deg);
-            animation: bubbleWobble 3s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px #ffb6c1);
+            animation: floatHappy 4s infinite ease-in-out;
         }
 
-        @keyframes bubbleWobble {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(-5deg); }
-            75% { transform: scale(0.95) rotate(5deg); }
+        @keyframes floatHappy {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-15px) rotate(-2deg); }
+        }
+
+        .sections {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .section {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #00ffff;
-            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #ffb6c1;
+            border-radius: 30px;
             padding: 20px;
             margin: 15px 0;
+            width: 100%;
+            max-width: 500px;
             position: relative;
             overflow: hidden;
-            animation: bubblePop 4s infinite ease-in-out;
+            animation: bubbleFloat 5s infinite ease-in-out;
             transform-origin: center;
         }
 
-        @keyframes bubblePop {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px #ff00ff; }
-            50% { transform: scale(1.05) skew(5deg); box-shadow: 0 0 40px #00ffff; }
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 20px #b3d8ff; }
+            50% { transform: translateY(-10px) scale(1.03); box-shadow: 0 0 30px #ffb6c1; }
         }
 
         .section::before {
@@ -92,33 +105,33 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 0, 255, 0.3), transparent);
-            animation: swirlDerange 6s infinite linear;
+            background: radial-gradient(circle, rgba(179, 216, 255, 0.3), transparent);
+            animation: softSwirl 8s infinite ease-in-out;
             z-index: -1;
         }
 
-        @keyframes swirlDerange {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.2); }
+        @keyframes softSwirl {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
         }
 
         .section h2 {
-            font-family: 'Bungee', sans-serif;
+            font-family: 'Bungee Shade', sans-serif;
             font-size: 1.8rem;
-            color: #ff00ff;
-            text-shadow: 0 0 15px #00ffff, 0 0 30px #ff00ff;
-            animation: textFlicker 0.5s infinite alternate;
+            color: #ffb6c1;
+            text-shadow: 0 0 10px #b3d8ff, 0 0 20px #ffb6c1;
+            animation: textFloat 3s infinite ease-in-out;
         }
 
-        @keyframes textFlicker {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; }
+        @keyframes textFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .section p {
             font-size: 1rem;
             color: #fff;
-            text-shadow: 0 0 10px #00ffff;
+            text-shadow: 0 0 5px #b3d8ff;
         }
 
         .link-button {
@@ -127,22 +140,22 @@
             font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
-            color: #000;
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            color: #fff;
+            background: linear-gradient(135deg, #ffb6c1, #b3d8ff);
             border-radius: 50px;
-            box-shadow: 0 0 20px #ff00ff;
+            box-shadow: 0 0 15px #ffb6c1;
             transition: all 0.3s ease;
-            animation: buttonPulse 2s infinite;
+            animation: buttonBob 2s infinite ease-in-out;
         }
 
-        @keyframes buttonPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        @keyframes buttonBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .link-button:hover {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 0 40px #00ffff;
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #b3d8ff;
         }
 
         @media (max-width: 600px) {
@@ -151,6 +164,7 @@
             .section h2 { font-size: 1.5rem; }
             .section p { font-size: 0.9rem; }
             .link-button { font-size: 1rem; padding: 10px 20px; }
+            .section { max-width: 100%; }
         }
     </style>
 </head>
@@ -162,23 +176,23 @@
         </div>
         <div class="sections">
             <div class="section">
-                <h2>Welcome to the Frenzy</h2>
-                <p>Dive into the deranged bubble trip of Fronk’s universe!</p>
+                <h2>Fronk’s Bubbly Bliss</h2>
+                <p>Floating through a pastel dream—too happy to care!</p>
             </div>
-            <div class="section"><h2>TikTok 🎭</h2><p>Trippy chaos in bite-sized bursts.</p><a href="https://www.tiktok.com/@thefronk" class="link-button">Follow</a></div>
-            <div class="section"><h2>Twitch ❤️</h2><p>Live meltdowns and warped vibes.</p><a href="https://www.twitch.tv/thefronky" class="link-button">Watch</a></div>
-            <div class="section"><h2>YouTube 📺</h2><p>Psychedelic breakdowns & highlights.</p><a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe</a></div>
-            <div class="section"><h2>Instagram 📌</h2><p>Stories that melt your brain.</p><a href="https://www.instagram.com/thefronky/" class="link-button">Follow</a></div>
-            <div class="section"><h2>Kick 🎲</h2><p>Unhinged, bubbly madness.</p><a href="https://kick.com/the-fronk" class="link-button">Join</a></div>
-            <div class="section"><h2>Discord 💬</h2><p>24/7 psychedelic squad.</p><a href="https://discord.gg/bsccAeZqVa" class="link-button">Chat</a></div>
-            <div class="section"><h2>Blu 🌐</h2><p>Trippy streaming secrets.</p><a href="https://www.blushiftcreative.com/" class="link-button">Explore</a></div>
-            <div class="section"><h2>Merch 🛍️</h2><p>Wear the deranged drip.</p><a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">Shop</a></div>
+            <div class="section"><h2>TikTok 🎭</h2><p>Giggles and glitches in bubbly bursts.</p><a href="https://www.tiktok.com/@thefronk" class="link-button">Follow</a></div>
+            <div class="section"><h2>Twitch ❤️</h2><p>Live fluff and fake smiles.</p><a href="https://www.twitch.tv/thefronky" class="link-button">Watch</a></div>
+            <div class="section"><h2>YouTube 📺</h2><p>Trippy tales with a grin.</p><a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe</a></div>
+            <div class="section"><h2>Instagram 📌</h2><p>Stories dripping in bliss.</p><a href="https://www.instagram.com/thefronky/" class="link-button">Follow</a></div>
+            <div class="section"><h2>Kick 🎲</h2><p>Overly happy chaos.</p><a href="https://kick.com/the-fronk" class="link-button">Join</a></div>
+            <div class="section"><h2>Discord 💬</h2><p>Floaty chat vibes 24/7.</p><a href="https://discord.gg/bsccAeZqVa" class="link-button">Chat</a></div>
+            <div class="section"><h2>Blu 🌐</h2><p>Secrets in a pastel haze.</p><a href="https://www.blushiftcreative.com/" class="link-button">Explore</a></div>
+            <div class="section"><h2>Merch 🛍️</h2><p>Wear the medicated glow.</p><a href="https://my-store-aba855.creator-spring.com/listing/fronk-products?product=345" class="link-button">Shop</a></div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // Psychedelic Shader Background
+        // Soft Psychedelic Shader Background
         const canvas = document.getElementById("shaderCanvas");
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -205,13 +219,12 @@
                     uv -= 0.5;
                     uv *= 2.0;
 
-                    float t = time * 0.5;
-                    vec3 color = vec3(0.0);
-                    float d = length(uv);
-                    float bubbles = sin(d * 10.0 - t) + cos(uv.x * 15.0 + t) + sin(uv.y * 20.0 + t);
-                    color += vec3(sin(bubbles + t), cos(bubbles + t * 1.5), sin(bubbles + t * 2.0));
-                    color *= smoothstep(0.2, 0.8, abs(sin(d * 5.0 - t)));
-                    color += vec3(0.5, 0.2, 0.7) * (1.0 - d);
+                    float t = time * 0.3;
+                    vec3 color = vec3(0.7, 0.8, 1.0); // Base blue
+                    float bubbles = sin(uv.x * 5.0 + t) + cos(uv.y * 5.0 + t);
+                    color += vec3(1.0, 0.7, 0.8) * smoothstep(0.2, 0.8, sin(bubbles * 3.0 + t)); // Pink bubbles
+                    color *= 0.8 + 0.2 * sin(t + length(uv) * 10.0);
+                    color = mix(color, vec3(0.9, 0.8, 1.0), 0.5); // Softer pastel blend
 
                     gl_FragColor = vec4(color, 1.0);
                 }
@@ -222,7 +235,7 @@
         scene.add(plane);
 
         function animate() {
-            material.uniforms.time.value += 0.05;
+            material.uniforms.time.value += 0.03;
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
