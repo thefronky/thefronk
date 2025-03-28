@@ -80,7 +80,7 @@
         }
 
         .section {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 15px;
             padding: 25px;
@@ -88,7 +88,7 @@
             width: 100%;
             max-width: 600px;
             position: relative;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px); /* Increased blur for better contrast */
             animation: panelGlide 1.5s ease-out forwards;
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
             transition: all 0.4s ease;
@@ -108,7 +108,7 @@
             font-family: 'Exo 2', sans-serif;
             font-size: 1.9rem;
             color: #fff;
-            text-shadow: 0 0 5px rgba(0, 183, 255, 0.5);
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Darker shadow for contrast */
             position: relative;
             display: inline-block;
             animation: glitch 2s infinite linear alternate;
@@ -124,8 +124,8 @@
 
         .section p {
             font-size: 1.1rem;
-            color: #f0f0f0;
-            text-shadow: none;
+            color: #fff; /* Solid white for better contrast */
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.7); /* Dark shadow for readability */
         }
 
         .link-button {
@@ -280,22 +280,22 @@
                     clouds += sin(p.x * 8.0 + t * 0.1) * cos(p.y * 8.0 - t * 0.1) * 0.25;
                     clouds = smoothstep(0.3, 0.7, clouds);
 
-                    // Enhanced holographic effect with sharper edges
+                    // Darker base for better text contrast
+                    vec3 color = vec3(0.2, 0.2, 0.2); // Darker base
+                    color = mix(color, vec3(1.0, 1.0, 1.0), clouds * 0.7); // White clouds
+                    color = mix(color, vec3(0.0, 0.7, 1.0), clouds * 0.4); // Blue (#00b7ff)
+                    color = mix(color, vec3(1.0, 0.0, 1.0), clouds * 0.3); // Pink (#ff00ff)
+
+                    // Enhanced holographic effects
                     float shimmer = sin(p.x * 20.0 + t * 4.0) * cos(p.y * 20.0 + t * 4.0);
                     float scanline = sin(uv.y * 200.0 + t * 6.0) * 0.07;
                     float particles = sin(p.x * 60.0 + t * 3.0) * cos(p.y * 60.0 + t * 3.0) * 0.15;
 
-                    // Base white clouds with neon holographic accents
-                    vec3 color = vec3(1.0, 1.0, 1.0); // White base
-                    color = mix(color, vec3(0.0, 0.7, 1.0), clouds * 0.5); // Blue (#00b7ff)
-                    color = mix(color, vec3(1.0, 0.0, 1.0), clouds * 0.4); // Pink (#ff00ff)
+                    color += vec3(0.4, 0.4, 0.4) * shimmer * clouds;
+                    color += vec3(0.3, 0.3, 0.3) * scanline;
+                    color += vec3(0.6, 0.6, 0.6) * particles * clouds;
 
-                    // Add enhanced holographic effects
-                    color += vec3(0.4, 0.4, 0.4) * shimmer * clouds; // Stronger shimmer
-                    color += vec3(0.3, 0.3, 0.3) * scanline; // More pronounced scanlines
-                    color += vec3(0.6, 0.6, 0.6) * particles * clouds; // Brighter particles
-
-                    // Add a glowing edge effect
+                    // Glowing edge effect
                     float edge = 0.5 / (length(uv) + 0.3);
                     color += vec3(0.3, 0.4, 0.6) * edge;
 
