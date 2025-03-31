@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Fronk Universe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: #0a0a0a;
+            background: #000; /* Pure black for space */
             color: #fff;
             overflow-x: hidden;
-            overflow-y: auto;
             min-height: 100vh;
             position: relative;
         }
 
-        /* Shader Canvas Background */
         #shaderCanvas {
             position: fixed;
             top: 0;
@@ -30,19 +28,35 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.85;
+            opacity: 0.7;
+        }
+
+        #threeCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
 
         .container {
             width: 90%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 120px 20px 20px;
+            padding: 150px 20px 20px; /* Ensure no overlap with header */
             z-index: 1;
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
+            opacity: 0;
+            animation: fadeInContent 1s ease-in forwards 6s;
+        }
+
+        @keyframes fadeInContent {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .header {
@@ -51,25 +65,22 @@
             left: 0;
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, rgba(0, 183, 255, 0.2), rgba(255, 0, 255, 0.2));
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
             z-index: 10;
             display: flex;
             justify-content: center;
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeInContent 1s ease-in forwards 6s;
         }
 
         .header img {
-            width: 110px;
+            width: 120px;
+            height: auto;
             padding: 5px;
-            border-radius: 50%;
-            filter: drop-shadow(0 0 20px #fff);
-            animation: hologramPulse 3s infinite ease-in-out;
-        }
-
-        @keyframes hologramPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px #fff); }
-            50% { transform: scale(1.03); filter: drop-shadow(0 0 30px #fff); }
+            filter: drop-shadow(0 0 20px #00FFFF) drop-shadow(0 0 20px #FF69B4);
+            transition: all 0.3s ease;
         }
 
         .sections {
@@ -80,52 +91,43 @@
         }
 
         .section {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 25px;
             margin: 20px 0;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             position: relative;
-            backdrop-filter: blur(20px); /* Increased blur for better contrast */
-            animation: panelGlide 1.5s ease-out forwards;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
             transition: all 0.4s ease;
+            animation: slideIn 1s ease-out forwards;
         }
 
-        @keyframes panelGlide {
-            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .section:hover {
-            box-shadow: 0 0 40px rgba(0, 183, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.5);
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 50px rgba(0, 255, 255, 0.3), 0 12px 50px rgba(255, 105, 180, 0.3);
         }
 
         .section h2 {
-            font-family: 'Exo 2', sans-serif;
-            font-size: 1.9rem;
-            color: #fff;
-            text-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Darker shadow for contrast */
-            position: relative;
-            display: inline-block;
-            animation: glitch 2s infinite linear alternate;
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            2% { transform: translate(-2px, 2px); }
-            4% { transform: translate(2px, -2px); }
-            6% { transform: translate(0); }
-            100% { transform: translate(0); }
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: #FFFF00;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+            margin-bottom: 10px;
         }
 
         .section p {
             font-size: 1.1rem;
-            color: #fff; /* Solid white for better contrast */
-            text-shadow: 0 0 4px rgba(0, 0, 0, 0.7); /* Dark shadow for readability */
+            color: #E0E0E0;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
         }
 
         .link-button {
@@ -135,13 +137,12 @@
             font-weight: 600;
             text-decoration: none;
             color: #fff;
-            background: linear-gradient(135deg, #ff00ff, #00b7ff);
-            border-radius: 50px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #FF69B4, #00FFFF);
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2), 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
         .link-button::before {
@@ -151,7 +152,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             animation: buttonShine 3s infinite linear;
         }
 
@@ -161,9 +162,9 @@
         }
 
         .link-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(0, 183, 255, 0.7), 0 0 25px rgba(255, 0, 255, 0.7);
-            background: linear-gradient(135deg, #ff00ff, #00b7ff, #ff00ff);
+            transform: translateY(-2px);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3), 0 6px 30px rgba(0, 255, 255, 0.4), 0 6px 30px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(135deg, #FF69B4, #00FFFF, #FF69B4);
         }
 
         .popup {
@@ -178,7 +179,7 @@
             color: #000;
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             animation: popupFade 0.3s ease-in-out;
         }
@@ -188,26 +189,34 @@
             to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
 
+        .popup p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
         .popup button {
-            margin-top: 15px;
-            padding: 12px 25px;
+            width: 100%;
+            padding: 12px;
             font-size: 1rem;
-            font-weight: bold;
-            background: #00b7ff;
-            color: white;
+            font-weight: 600;
+            background: #00FFFF;
+            color: #000;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
         }
 
         .popup button:hover {
-            transform: scale(1.05);
+            background: #FF69B4;
+            transform: scale(1.02);
         }
 
         @media (max-width: 600px) {
-            .header img { width: 80px; }
-            .container { padding-top: 100px; }
+            .header img { 
+                width: 80px; 
+            }
+            .container { padding-top: 120px; }
             .section h2 { font-size: 1.6rem; }
             .section p { font-size: 1rem; }
             .link-button { font-size: 1rem; padding: 10px 20px; }
@@ -217,9 +226,10 @@
 </head>
 <body>
     <canvas id="shaderCanvas"></canvas>
+    <canvas id="threeCanvas"></canvas>
     <div class="container">
         <div class="header">
-            <img src="https://raw.githubusercontent.com/thefronky/pfp/63771d1697ebc02222af1093a444ebe3a4f21ac0/Fronk%20Logo%20new.png" alt="The Fronk Logo">
+            <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="The Fronk Logo">
         </div>
         <div class="sections">
             <div class="section" onclick="showPopup(event)">
@@ -244,15 +254,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // Enhanced Holographic Cloud Portal Shader Background
-        const canvas = document.getElementById("shaderCanvas");
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        const renderer = new THREE.WebGLRenderer({ canvas });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        // Shader Background with Nebula Effect
+        const shaderCanvas = document.getElementById("shaderCanvas");
+        const shaderScene = new THREE.Scene();
+        const shaderCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const shaderRenderer = new THREE.WebGLRenderer({ canvas: shaderCanvas, alpha: true });
+        shaderRenderer.setSize(window.innerWidth, window.innerHeight);
 
-        const geometry = new THREE.PlaneGeometry(2, 2);
-        const material = new THREE.ShaderMaterial({
+        const shaderGeometry = new THREE.PlaneGeometry(2, 2);
+        const shaderMaterial = new THREE.ShaderMaterial({
             uniforms: {
                 time: { value: 0.0 },
                 resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
@@ -266,38 +276,54 @@
                 uniform float time;
                 uniform vec2 resolution;
 
+                float noise(vec2 p) {
+                    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+                }
+
+                float smoothNoise(vec2 p) {
+                    vec2 i = floor(p);
+                    vec2 f = fract(p);
+                    vec2 u = f * f * (3.0 - 2.0 * f);
+                    return mix(mix(noise(i + vec2(0.0, 0.0)), noise(i + vec2(1.0, 0.0)), u.x),
+                               mix(noise(i + vec2(0.0, 1.0)), noise(i + vec2(1.0, 1.0)), u.x), u.y);
+                }
+
+                float fbm(vec2 p) {
+                    float v = 0.0;
+                    float a = 0.5;
+                    vec2 shift = vec2(100.0);
+                    for (int i = 0; i < 6; ++i) {
+                        v += a * smoothNoise(p);
+                        p = p * 2.0 + shift;
+                        a *= 0.5;
+                    }
+                    return v;
+                }
+
                 void main() {
                     vec2 uv = gl_FragCoord.xy / resolution.xy;
                     uv -= 0.5;
                     uv *= 2.0;
 
-                    float t = time * 0.15;
-                    vec2 p = uv;
+                    float t = time * 0.05;
+                    vec2 p = uv * 3.0;
 
-                    // Layered cloud noise for depth and clarity
-                    float clouds = sin(p.x * 2.0 + t) * cos(p.y * 2.0 + t);
-                    clouds += sin(p.x * 4.0 - t * 0.2) * cos(p.y * 4.0 + t * 0.2) * 0.5;
-                    clouds += sin(p.x * 8.0 + t * 0.1) * cos(p.y * 8.0 - t * 0.1) * 0.25;
-                    clouds = smoothstep(0.3, 0.7, clouds);
+                    // Create swirling nebula effect
+                    float nebula = fbm(p + t);
+                    nebula += fbm(p * 0.5 - t * 0.3) * 0.5;
+                    nebula += fbm(p * 0.25 + t * 0.2) * 0.25;
+                    nebula = smoothstep(0.2, 0.8, nebula);
 
-                    // Darker base for better text contrast
-                    vec3 color = vec3(0.2, 0.2, 0.2); // Darker base
-                    color = mix(color, vec3(1.0, 1.0, 1.0), clouds * 0.7); // White clouds
-                    color = mix(color, vec3(0.0, 0.7, 1.0), clouds * 0.4); // Blue (#00b7ff)
-                    color = mix(color, vec3(1.0, 0.0, 1.0), clouds * 0.3); // Pink (#ff00ff)
+                    // Color gradient with logo colors
+                    vec3 color = vec3(0.0);
+                    color = mix(color, vec3(0.0, 1.0, 1.0), nebula * 0.4); // Cyan
+                    color = mix(color, vec3(1.0, 0.41, 0.71), nebula * 0.3); // Pink
+                    color = mix(color, vec3(1.0, 1.0, 0.0), nebula * 0.2); // Yellow
+                    color = mix(color, vec3(1.0, 0.65, 0.0), nebula * 0.1); // Orange
 
-                    // Enhanced holographic effects
-                    float shimmer = sin(p.x * 20.0 + t * 4.0) * cos(p.y * 20.0 + t * 4.0);
-                    float scanline = sin(uv.y * 200.0 + t * 6.0) * 0.07;
-                    float particles = sin(p.x * 60.0 + t * 3.0) * cos(p.y * 60.0 + t * 3.0) * 0.15;
-
-                    color += vec3(0.4, 0.4, 0.4) * shimmer * clouds;
-                    color += vec3(0.3, 0.3, 0.3) * scanline;
-                    color += vec3(0.6, 0.6, 0.6) * particles * clouds;
-
-                    // Glowing edge effect
-                    float edge = 0.5 / (length(uv) + 0.3);
-                    color += vec3(0.3, 0.4, 0.6) * edge;
+                    // Add subtle glow
+                    float glow = 0.2 / (length(uv) + 0.5);
+                    color += vec3(0.1, 0.2, 0.3) * glow;
 
                     color = clamp(color, 0.0, 1.0);
                     gl_FragColor = vec4(color, 1.0);
@@ -305,11 +331,227 @@
             `
         });
 
-        const plane = new THREE.Mesh(geometry, material);
-        scene.add(plane);
+        const shaderPlane = new THREE.Mesh(shaderGeometry, shaderMaterial);
+        shaderScene.add(shaderPlane);
 
+        function animateShader() {
+            shaderMaterial.uniforms.time.value += 0.02;
+            shaderRenderer.render(shaderScene, shaderCamera);
+            requestAnimationFrame(animateShader);
+        }
+        animateShader();
+
+        // Three.js Setup for Enhanced 3D Wave Animation
+        const canvas = document.getElementById("threeCanvas");
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        camera.position.z = 50;
+
+        // Add a dynamic light source
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        pointLight.position.set(0, 0, 20);
+        scene.add(pointLight);
+
+        // Load the transparent logo and stars as textures
+        const textureLoader = new THREE.TextureLoader();
+        const logoTexture = textureLoader.load('https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true');
+        const starTexture = textureLoader.load('https://raw.githubusercontent.com/thefronky/pfp/refs/heads/main/stars.png');
+
+        // Create 100 logo instances
+        const logos = [];
+        const logoCount = 100;
+        const geometry = new THREE.PlaneGeometry(5, 5);
+        const material = new THREE.MeshBasicMaterial({ map: logoTexture, transparent: true, side: THREE.DoubleSide });
+
+        for (let i = 0; i < logoCount; i++) {
+            const logo = new THREE.Mesh(geometry, material);
+            const x = (i % 10 - 5) * 8;
+            const y = (Math.floor(i / 10) - 5) * 8;
+            const z = -150;
+            logo.position.set(x, y, z);
+            logo.userData = {
+                initialX: x,
+                initialY: y,
+                scatter: false,
+                scatterVelocity: new THREE.Vector3(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                ),
+                opacity: 1,
+                glow: 1
+            };
+            scene.add(logo);
+            logos.push(logo);
+        }
+
+        // Particle System for Background with Stars
+        const particleCount = 1000;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const scales = new Float32Array(particleCount);
+        const opacities = new Float32Array(particleCount);
+
+        for (let i = 0; i < particleCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 300;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 300;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 300;
+            scales[i] = Math.random() * 2 + 1;
+            opacities[i] = Math.random();
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particlesGeometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
+        particlesGeometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1));
+
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 3,
+            map: starTexture,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+        const particles = new THREE.Points(particlesGeometry, particleMaterial);
+        scene.add(particles);
+
+        // Splash Particles with Stars
+        const splashParticles = [];
+        const splashGeometry = new THREE.BufferGeometry();
+        const splashPositions = new Float32Array(logoCount * 20 * 3);
+        const splashScales = new Float32Array(logoCount * 20);
+        const splashOpacities = new Float32Array(logoCount * 20);
+
+        for (let i = 0; i < logoCount * 20; i++) {
+            splashPositions[i * 3] = 0;
+            splashPositions[i * 3 + 1] = 0;
+            splashPositions[i * 3 + 2] = 0;
+            splashScales[i] = Math.random() * 2 + 1;
+            splashOpacities[i] = 1;
+        }
+
+        splashGeometry.setAttribute('position', new THREE.BufferAttribute(splashPositions, 3));
+        splashGeometry.setAttribute('scale', new THREE.BufferAttribute(splashScales, 1));
+        splashGeometry.setAttribute('opacity', new THREE.BufferAttribute(splashOpacities, 1));
+
+        const splashMaterial = new THREE.PointsMaterial({
+            size: 4,
+            map: starTexture,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+        const splashSystem = new THREE.Points(splashGeometry, splashMaterial);
+        scene.add(splashSystem);
+
+        // Animation
+        let time = 0;
         function animate() {
-            material.uniforms.time.value += 0.02;
+            time += 0.02;
+
+            // Animate background particles
+            const particlePositions = particles.geometry.attributes.position.array;
+            const particleScales = particles.geometry.attributes.scale.array;
+            const particleOpacities = particles.geometry.attributes.opacity.array;
+            for (let i = 0; i < particleCount; i++) {
+                particlePositions[i * 3 + 2] += 0.05;
+                if (particlePositions[i * 3 + 2] > 150) {
+                    particlePositions[i * 3 + 2] = -150;
+                }
+                // Twinkle effect
+                particleOpacities[i] = Math.sin(time + i) * 0.5 + 0.5;
+                particleScales[i] = Math.sin(time + i) * 1 + 1;
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            particles.geometry.attributes.opacity.needsUpdate = true;
+            particles.geometry.attributes.scale.needsUpdate = true;
+
+            // Animate logos
+            logos.forEach((logo, index) => {
+                if (!logo.userData.scatter) {
+                    const z = logo.position.z + 1.5;
+                    logo.position.z = z;
+
+                    const waveX = Math.sin(time + logo.userData.initialX * 0.1) * 3;
+                    const waveY = Math.cos(time + logo.userData.initialY * 0.1) * 3;
+                    logo.position.x = logo.userData.initialX + waveX;
+                    logo.position.y = logo.userData.initialY + waveY;
+
+                    // Add rotation to the wave
+                    logo.rotation.z = Math.sin(time + logo.userData.initialX * 0.1) * 0.2;
+
+                    logo.lookAt(camera.position);
+
+                    // Move light with the wave
+                    pointLight.position.x = logo.position.x;
+                    pointLight.position.y = logo.position.y;
+                    pointLight.position.z = logo.position.z + 20;
+
+                    if (z > 0) {
+                        logo.userData.scatter = true;
+
+                        // Create splash particles
+                        for (let j = 0; j < 20; j++) {
+                            const idx = (index * 20 + j) * 3;
+                            splashPositions[idx] = logo.position.x;
+                            splashPositions[idx + 1] = logo.position.y;
+                            splashPositions[idx + 2] = logo.position.z;
+                            splashParticles.push({
+                                position: new THREE.Vector3(
+                                    logo.position.x,
+                                    logo.position.y,
+                                    logo.position.z
+                                ),
+                                velocity: new THREE.Vector3(
+                                    (Math.random() - 0.5) * 15,
+                                    (Math.random() - 0.5) * 15,
+                                    (Math.random() - 0.5) * 15
+                                ),
+                                life: 1
+                            });
+                        }
+                    }
+                } else {
+                    logo.position.add(logo.userData.scatterVelocity);
+                    logo.userData.opacity -= 0.02;
+                    logo.material.opacity = logo.userData.opacity;
+
+                    logo.rotation.x += 0.1;
+                    logo.rotation.y += 0.1;
+
+                    if (logo.userData.opacity <= 0) {
+                        scene.remove(logo);
+                    }
+                }
+            });
+
+            // Animate splash particles
+            const splashPosArray = splashSystem.geometry.attributes.position.array;
+            const splashScaleArray = splashSystem.geometry.attributes.scale.array;
+            const splashOpacityArray = splashSystem.geometry.attributes.opacity.array;
+            splashParticles.forEach((particle, idx) => {
+                particle.position.add(particle.velocity);
+                particle.life -= 0.02;
+
+                const i = idx * 3;
+                splashPosArray[i] = particle.position.x;
+                splashPosArray[i + 1] = particle.position.y;
+                splashPosArray[i + 2] = particle.position.z;
+                splashOpacityArray[idx] = particle.life;
+                splashScaleArray[idx] = particle.life * 2 + 1;
+
+                if (particle.life <= 0) {
+                    splashPosArray[i + 2] = -1000;
+                }
+            });
+            splashSystem.geometry.attributes.position.needsUpdate = true;
+            splashSystem.geometry.attributes.opacity.needsUpdate = true;
+            splashSystem.geometry.attributes.scale.needsUpdate = true;
+
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
@@ -318,7 +560,10 @@
         // Resize handler
         window.addEventListener("resize", () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
-            material.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            shaderRenderer.setSize(window.innerWidth, window.innerHeight);
+            shaderMaterial.uniforms.resolution.value.set(window.innerWidth, window.innerHeight);
         });
 
         // Popup Functions
