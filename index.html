@@ -91,6 +91,7 @@
             padding: 5px 10px;
             transition: color 0.2s ease;
             position: relative;
+            white-space: nowrap;
         }
 
         .nav ul li:hover {
@@ -117,7 +118,7 @@
             width: 90%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 100px 20px 20px; /* Increased padding to avoid overlap */
+            padding: 100px 20px 20px;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -148,7 +149,7 @@
 
         .header {
             position: fixed;
-            top: 50px; /* Below nav bar */
+            top: 50px;
             left: 0;
             width: 100%;
             padding: 10px;
@@ -165,36 +166,44 @@
 
         .header h1 {
             font-size: 24px;
+            white-space: nowrap;
         }
 
-        .bio-img {
+        .bio-logo {
             width: 60px;
             height: auto;
             image-rendering: pixelated;
-            margin: 10px 0;
+            margin: 20px auto 0 auto; /* Centered at the bottom with space above */
+            border: 2px solid #000;
+            border-top-color: #fff;
+            border-left-color: #fff;
+            box-shadow: 2px 2px 0 #000;
+            padding: 5px;
+            display: block;
         }
 
         .join-button {
             display: inline-block;
-            padding: 15px 30px;
+            padding: 10px 20px; /* Adjusted to match link-button shape */
             font-size: 20px;
             text-decoration: none;
             color: #000;
-            background: #c0c0c0;
-            border: 3px solid #000;
+            background: #DCDCDC; /* Lighter grey to stand out */
+            border: 2px solid #000;
             border-top-color: #fff;
             border-left-color: #fff;
-            box-shadow: 3px 3px 0 #000;
+            box-shadow: 2px 2px 0 #000;
             transition: all 0.2s ease;
             image-rendering: pixelated;
-            margin-top: 20px;
+            margin: 20px auto; /* Center horizontally */
             cursor: pointer;
+            text-align: center;
         }
 
         .join-button:hover {
-            background: #a9a9a9;
-            transform: translate(-2px, -2px);
-            box-shadow: 5px 5px 0 #000;
+            background: #c0c0c0;
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0 #000;
         }
 
         .section {
@@ -225,7 +234,7 @@
         .section p {
             font-size: 18px;
             color: #000;
-            margin-bottom: 10px; /* Reverted to non-italic */
+            margin-bottom: 10px;
         }
 
         .link-button {
@@ -334,7 +343,7 @@
             .section h2 { font-size: 20px; }
             .section p { font-size: 16px; }
             .link-button { font-size: 16px; padding: 8px 16px; }
-            .join-button { font-size: 18px; padding: 12px 25px; }
+            .join-button { font-size: 18px; padding: 10px 20px; }
             .iframe-container { height: 300px; }
             .discord-widget { height: 400px; }
             .section { max-width: 100%; }
@@ -346,7 +355,7 @@
     <div class="crt-overlay"></div>
     <nav class="nav">
         <ul>
-            <li class="active" onclick="showContent('about')">About FRONK</li>
+            <li class="active" onclick="showContent('about')">About</li>
             <li onclick="showContent('socials')">Socials</li>
             <li onclick="showContent('merch')">Merch</li>
             <li onclick="showContent('community')">Community</li>
@@ -358,8 +367,6 @@
         </div>
         <div class="content active" id="about">
             <div class="section">
-                <h2>About FRONK</h2>
-                <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Logo" class="bio-img">
                 <p>The FRONK Show is a theatrical fever dream, streamed live.</p>
                 <p>Audiences don’t watch FRONK — they gather like it’s ritual.</p>
                 <p>His presence is magnetic, the kind of thing you don’t stumble into; you’re pulled in like gravity.</p>
@@ -367,6 +374,9 @@
                 <p>He’s the host of Totally Awesome Gameshow, the red carpet at Live Fest, and the New York Comedy Festival.</p>
                 <p>A ghost producer and often-nominated standout, he’s also a strategic advisor at blu, where he helps guide the next wave of live creators.</p>
                 <p>FRONK doesn’t just go live — he shapes the industry.</p>
+                <div class="bio-logo">
+                    <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Logo" style="width: 100%; height: auto;">
+                </div>
             </div>
             <div class="join-button" onclick="showPopup(event)">Join FRONK While Live</div>
         </div>
@@ -374,7 +384,7 @@
             <div class="section">
                 <h2>TikTok 🎭</h2>
                 <p>The main stage for FRONK.</p>
-                <a href="https://www.tiktok.com/@thefronk" class="link-button">Follow on TikTok</a>
+                <a href="https://www.tiktok.com/@thefronky" class="link-button">Follow on TikTok</a>
             </div>
             <div class="section">
                 <h2>YouTube 📺</h2>
@@ -412,9 +422,9 @@
             <div class="section">
                 <h2>Discord Community 💬</h2>
                 <p>Join the FRONK community for 24/7 chat and exclusive updates.</p>
-                <!-- Discord Widget (Replace YOUR_SERVER_ID with actual Discord server ID) -->
+                <!-- Reverted to Discord Widget Attempt -->
                 <div class="discord-widget">
-                    <iframe src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+                    <iframe src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-same-origin allow-scripts"></iframe>
                 </div>
                 <p>If the widget doesn’t load, <a href="https://discord.gg/bsccAeZqVa" class="link-button">join here</a>.</p>
                 <p><i>If you're having trouble opening, long hold and open in a browser.</i></p>
