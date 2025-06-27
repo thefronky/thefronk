@@ -3,79 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FRONK'S WORLD</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <title>FRONK'S WORLD 2055</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'VT323', monospace;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: #c0c0c0;
-            color: #000;
+            background: linear-gradient(135deg, #1e1e2f, #3b1e5e, #1e3b5e);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            color: #fff;
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* CRT Background */
-        .crt-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://raw.githubusercontent.com/thefronky/pfp/main/retro-bg.png') repeat;
-            opacity: 0.1;
-            z-index: -1;
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .crt-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                rgba(0, 0, 0, 0.05) 0,
-                rgba(0, 0, 0, 0.05) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            pointer-events: none;
-            z-index: 0;
-            animation: crtGlitch 0.1s infinite;
-        }
-
-        @keyframes crtGlitch {
-            0% { transform: translate(0, 0); }
-            10% { transform: translate(2px, -1px); }
-            20% { transform: translate(-2px, 1px); }
-            30% { transform: translate(1px, 0); }
-            40% { transform: translate(0, -1px); }
-            50% { transform: translate(-1px, 1px); }
-            60% { transform: translate(2px, 0); }
-            70% { transform: translate(0, 1px); }
-            80% { transform: translate(-2px, -1px); }
-            90% { transform: translate(1px, 0); }
-            100% { transform: translate(0, 0); }
-        }
-
+        /* Navigation */
         .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
             padding: 10px 20px;
-            background: #000080;
-            color: #fff;
-            z-index: 20;
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
         }
 
         .nav ul {
@@ -85,395 +48,301 @@
         }
 
         .nav ul li {
-            font-size: 20px;
-            color: #E0E0E0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #fff;
             cursor: pointer;
-            padding: 5px 10px;
-            transition: color 0.2s ease;
-            position: relative;
-            white-space: nowrap;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .nav ul li:hover {
-            color: #00FFFF;
-            text-shadow: 0 0 5px #00FFFF;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .nav ul li.active {
-            color: #FFFF00;
-            text-shadow: 0 0 10px #FFFF00;
+            background: rgba(255, 255, 255, 0.3);
+            color: #00ffcc;
         }
 
-        .nav ul li.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #FFFF00;
-        }
-
+        /* Container */
         .container {
             width: 90%;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 100px 20px 20px;
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards 2s;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
+        /* Content */
         .content {
             width: 100%;
             display: none;
-            animation: slideIn 0.5s ease-out forwards;
-        }
-
-        @keyframes slideIn {
-            0% { transform: translateY(10px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+            animation: fadeIn 0.5s ease-out forwards;
         }
 
         .content.active {
             display: block;
         }
 
-        .header {
-            position: fixed;
-            top: 50px;
-            left: 0;
-            width: 100%;
-            padding: 10px;
-            background: #000080;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards 2s;
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        .header h1 {
-            font-size: 24px;
-            white-space: nowrap;
-        }
-
-        .bio-logo {
-            width: 60px;
-            height: auto;
-            image-rendering: pixelated;
-            margin: 20px auto 0 auto; /* Centered at the bottom with space above */
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            box-shadow: 2px 2px 0 #000;
-            padding: 5px;
-            display: block;
-        }
-
-        .join-button {
-            display: inline-block;
-            padding: 10px 20px; /* Adjusted to match link-button shape */
-            font-size: 20px;
-            text-decoration: none;
-            color: #000;
-            background: #DCDCDC; /* Lighter grey to stand out */
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            box-shadow: 2px 2px 0 #000;
-            transition: all 0.2s ease;
-            image-rendering: pixelated;
-            margin: 20px auto; /* Center horizontally */
-            cursor: pointer;
+        /* Intro Section */
+        .intro {
             text-align: center;
+            padding: 50px 0;
         }
 
-        .join-button:hover {
-            background: #c0c0c0;
-            transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0 #000;
+        .intro-logo {
+            width: 300px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.5));
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .section {
-            background: #d3d3d3;
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            border-radius: 0;
-            padding: 20px;
-            margin: 15px 0;
-            width: 100%;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .intro h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            background: linear-gradient(45deg, #00ffcc, #ff00cc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 20px 0;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 255, 204, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(0, 255, 204, 0.8); }
+        }
+
+        .intro p {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
             max-width: 600px;
-            box-shadow: 3px 3px 0 #000;
-            transition: transform 0.2s ease;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .section:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 5px 5px 0 #000;
+        .enter-button {
+            padding: 15px 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            color: #fff;
+            background: linear-gradient(45deg, #00ffcc, #ff00cc);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .enter-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.8);
+        }
+
+        /* Section Styling */
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .section h2 {
-            font-size: 24px;
-            color: #000080;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            color: #00ffcc;
+            margin-bottom: 20px;
         }
 
         .section p {
             font-size: 18px;
-            color: #000;
-            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
         }
 
         .link-button {
             display: inline-block;
             padding: 10px 20px;
-            font-size: 18px;
+            font-size: 16px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             text-decoration: none;
-            color: #000;
-            background: #c0c0c0;
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            box-shadow: 2px 2px 0 #000;
-            transition: all 0.2s ease;
-            image-rendering: pixelated;
+            transition: background 0.3s ease;
+            margin: 5px;
         }
 
         .link-button:hover {
-            background: #a9a9a9;
-            transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0 #000;
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .iframe-container {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            box-shadow: 3px 3px 0 #000;
-            margin: 15px 0;
-            overflow: hidden;
-        }
-
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .discord-widget {
-            width: 100%;
-            max-width: 600px;
-            height: 500px;
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            box-shadow: 3px 3px 0 #000;
-            margin: 15px 0;
-            overflow: hidden;
-        }
-
-        .discord-widget iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 400px;
-            background: #d3d3d3;
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
+        /* Discord Preview */
+        .discord-preview {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: 5px 5px 0 #000;
-            z-index: 1000;
-        }
-
-        .popup p {
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        .popup button {
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            background: #c0c0c0;
-            color: #000;
-            border: 2px solid #000;
-            border-top-color: #fff;
-            border-left-color: #fff;
-            box-shadow: 2px 2px 0 #000;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: transform 0.3s ease;
         }
 
-        .popup button:hover {
-            background: #a9a9a9;
-            transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0 #000;
+        .discord-preview:hover {
+            transform: translateY(-5px);
         }
 
-        @media (max-width: 600px) {
-            .nav ul li { font-size: 18px; padding: 5px 8px; }
-            .header h1 { font-size: 18px; }
+        .discord-preview img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .discord-preview p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .discord-preview .stats {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-logo { width: 200px; }
+            .intro h1 { font-size: 48px; }
+            .intro p { font-size: 18px; }
+            .section { padding: 20px; }
+            .nav ul li { font-size: 14px; padding: 6px 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .intro-logo { width: 150px; }
+            .intro h1 { font-size: 36px; }
+            .enter-button { padding: 12px 30px; font-size: 18px; }
+            .discord-preview { flex-direction: column; text-align: center; }
             .container { padding-top: 80px; }
-            .section h2 { font-size: 20px; }
-            .section p { font-size: 16px; }
-            .link-button { font-size: 16px; padding: 8px 16px; }
-            .join-button { font-size: 18px; padding: 10px 20px; }
-            .iframe-container { height: 300px; }
-            .discord-widget { height: 400px; }
-            .section { max-width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="crt-background"></div>
-    <div class="crt-overlay"></div>
     <nav class="nav">
         <ul>
-            <li class="active" onclick="showContent('about')">About</li>
+            <li class="active" onclick="showContent('intro')">Intro</li>
             <li onclick="showContent('socials')">Socials</li>
             <li onclick="showContent('merch')">Merch</li>
             <li onclick="showContent('community')">Community</li>
         </ul>
     </nav>
     <div class="container">
-        <div class="header">
-            <h1>FRONK'S WORLD</h1>
-        </div>
-        <div class="content active" id="about">
-            <div class="section">
-                <p>The FRONK Show is a theatrical fever dream, streamed live.</p>
-                <p>Audiences don’t watch FRONK — they gather like it’s ritual.</p>
-                <p>His presence is magnetic, the kind of thing you don’t stumble into; you’re pulled in like gravity.</p>
-                <p>Like a controlled detonation, he erupts nightly, reshaping what live streaming can be.</p>
-                <p>He’s the host of Totally Awesome Gameshow, the red carpet at Live Fest, and the New York Comedy Festival.</p>
-                <p>A ghost producer and often-nominated standout, he’s also a strategic advisor at blu, where he helps guide the next wave of live creators.</p>
-                <p>FRONK doesn’t just go live — he shapes the industry.</p>
-                <div class="bio-logo">
-                    <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Logo" style="width: 100%; height: auto;">
-                </div>
+        <div class="content active" id="intro">
+            <div class="intro">
+                <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Logo" class="intro-logo">
+                <h1>FRONK'S WORLD</h1>
+                <p id="tagline">Chaos, Streamed Live</p>
+                <button class="enter-button" onclick="showContent('socials')">Enter the Fever Dream</button>
             </div>
-            <div class="join-button" onclick="showPopup(event)">Join FRONK While Live</div>
         </div>
         <div class="content" id="socials">
             <div class="section">
-                <h2>TikTok 🎭</h2>
-                <p>The main stage for FRONK.</p>
-                <a href="https://www.tiktok.com/@thefronky" class="link-button">Follow on TikTok</a>
-            </div>
-            <div class="section">
-                <h2>YouTube 📺</h2>
-                <p>Watch All Stream Replays.</p>
-                <a href="https://www.youtube.com/@the_fronk" class="link-button">Subscribe on YouTube</a>
-            </div>
-            <div class="section">
-                <h2>Instagram 📌</h2>
-                <p>Unhinged story updates.</p>
-                <div class="iframe-container">
-                    <iframe src="https://www.instagram.com/thefronky/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+                <h2>Socials</h2>
+                <p>Join FRONK across the multiverse of platforms.</p>
+                <div>
+                    <a href="https://www.tiktok.com/@thefronky" class="link-button">TikTok 🎭</a>
+                    <a href="https://www.youtube.com/@the_fronk" class="link-button">YouTube 📺</a>
+                    <a href="https://www.instagram.com/thefronky" class="link-button">Instagram 📌</a>
+                    <a href="https://www.twitch.tv/thefronky" class="link-button">Twitch ❤️</a>
+                    <a href="https://kick.com/the-fronk" class="link-button">Kick 🎲</a>
                 </div>
-            </div>
-            <div class="section">
-                <h2>Twitch ❤️</h2>
-                <p>Watch FRONK live on Twitch.</p>
-                <a href="https://www.twitch.tv/thefronky" class="link-button">Watch on Twitch</a>
-            </div>
-            <div class="section">
-                <h2>Kick 🎲</h2>
-                <p>Join FRONK on Kick.</p>
-                <a href="https://kick.com/the-fronk" class="link-button">Join on Kick</a>
             </div>
         </div>
         <div class="content" id="merch">
             <div class="section">
-                <h2>Merch 🛍️</h2>
-                <p>Get exclusive FRONK gear. Wear the chaos with pride with our limited-edition apparel and accessories.</p>
-                <div class="iframe-container">
-                    <iframe src="https://my-store-aba855.creator-spring.com/listing/fronk-merch-drop" frameborder="0"></iframe>
-                </div>
+                <h2>Merch</h2>
+                <p>Wear the chaos with exclusive FRONK gear.</p>
+                <a href="https://my-store-aba855.creator-spring.com/listing/fronk-merch-drop" class="link-button">Shop Now</a>
             </div>
         </div>
         <div class="content" id="community">
             <div class="section">
-                <h2>Discord Community 💬</h2>
-                <p>Join the FRONK community for 24/7 chat and exclusive updates.</p>
-                <!-- Reverted to Discord Widget Attempt -->
-                <div class="discord-widget">
-                    <iframe src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-same-origin allow-scripts"></iframe>
+                <h2>Community</h2>
+                <p>Join the FRONK community for 24/7 chaos and exclusive updates.</p>
+                <div class="discord-preview" onclick="window.open('https://discord.gg/bsccAeZqVa', '_blank')">
+                    <img src="https://cdn.discordapp.com/icons/1234567890/icon.png" alt="Discord Icon" onerror="this.src='https://via.placeholder.com/60';">
+                    <div>
+                        <p>FRONK'S Discord</p>
+                        <p class="stats">12,345 Members • 3,456 Online</p>
+                    </div>
                 </div>
-                <p>If the widget doesn’t load, <a href="https://discord.gg/bsccAeZqVa" class="link-button">join here</a>.</p>
-                <p><i>If you're having trouble opening, long hold and open in a browser.</i></p>
+                <p>If you have trouble joining, <a href="https://discord.gg/bsccAeZqVa" class="link-button">click here</a>.</p>
             </div>
-        </div>
-        <div id="popup" class="popup">
-            <p>Error: You must follow FRONK on 2 social platforms first.</p>
-            <button onclick="goToSocials()">Go to Socials</button>
         </div>
     </div>
 
     <script>
-        // Animation and tab switching
+        // Tabbed navigation
         function showContent(tab) {
             const contents = document.querySelectorAll('.content');
             const tabs = document.querySelectorAll('.nav ul li');
 
-            // Reset all content to hidden
             contents.forEach(content => {
                 content.classList.remove('active');
-                content.style.display = 'none'; // Explicitly hide non-active content
+                content.style.display = 'none';
             });
             tabs.forEach(tabElement => tabElement.classList.remove('active'));
 
-            // Activate the selected tab and content
             const selectedContent = document.getElementById(tab);
             selectedContent.classList.add('active');
-            selectedContent.style.display = 'block'; // Ensure it’s visible
+            selectedContent.style.display = 'block';
             document.querySelector(`.nav ul li[onclick="showContent('${tab}')"]`).classList.add('active');
 
-            // Trigger slide-in animation
             setTimeout(() => {
                 selectedContent.style.opacity = '1';
-            }, 50); // Small delay for animation
+            }, 50);
         }
 
-        function showPopup(event) {
-            event.preventDefault();
-            document.getElementById("popup").style.display = "block";
-        }
+        // Dynamic tagline
+        const taglines = [
+            'Chaos, Streamed Live',
+            'Join the Fever Dream',
+            'A Theatrical Explosion',
+            'FRONK Awaits You'
+        ];
+        let currentTagline = 0;
+        const taglineElement = document.getElementById('tagline');
+        setInterval(() => {
+            taglineElement.style.opacity = 0;
+            setTimeout(() => {
+                taglineElement.textContent = taglines[currentTagline];
+                taglineElement.style.opacity = 1;
+                currentTagline = (currentTagline + 1) % taglines.length;
+            }, 500);
+        }, 5000);
 
-        function goToSocials() {
-            document.getElementById("popup").style.display = "none";
-            showContent('socials');
-        }
-
-        // Initialize with "About FRONK" active
-        window.onload = function() {
-            showContent('about'); // Set initial active tab
+        // Initialize
+        window.onload = () => {
+            showContent('intro');
         };
     </script>
 </body>
