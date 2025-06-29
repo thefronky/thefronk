@@ -4,85 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRONK'S WORLD</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'IBM Plex Mono', monospace;
         }
 
         body {
-            background: linear-gradient(135deg, #1e1e2f, #3b1e5e, #1e3b5e);
-            background-size: 200% 200%;
-            animation: gradientShift 15s ease infinite;
-            color: #fff;
+            background: #ffffff;
+            color: #000000;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
+            position: relative;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Navigation */
-        .nav {
+        /* Flashing Background */
+        .background {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 10px 20px;
-            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: -1;
+            animation: flash 7s infinite;
         }
 
-        .nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
+        @keyframes flash {
+            0%, 92% { background: #ffffff; }
+            93% { background: #e0e0e0; }
+            94% { background: #ffffff; }
+            95% { background: #ff0000; opacity: 0.2; }
+            96% { background: #ffffff; }
+            100% { background: #ffffff; }
         }
 
-        .nav ul li {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
-            color: #fff;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
-
-        .nav ul li:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .nav ul li.active {
-            background: rgba(255, 255, 255, 0.3);
-            color: #00ffcc;
-        }
-
-        /* Container */
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 100px 20px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Content */
         .content {
-            width: 100%;
             display: none;
-            animation: fadeIn 0.5s ease-out forwards;
+            animation: fadeIn 0.4s ease-out forwards;
         }
 
         .content.active {
@@ -90,259 +62,293 @@
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
+            0% { opacity: 0; transform: translateY(5px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Intro Section */
-        .intro {
-            text-align: center;
-            padding: 50px 0;
+        .welcome {
+            padding: 40px 0;
         }
 
-        .intro-logo {
-            width: 300px;
-            height: auto;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.5));
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-
-        .intro h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 64px;
-            background: linear-gradient(45deg, #00ffcc, #ff00cc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin: 20px 0;
-            animation: textGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes textGlow {
-            0%, 100% { text-shadow: 0 0 10px rgba(0, 255, 204, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(0, 255, 204, 0.8); }
-        }
-
-        .intro p {
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .enter-button {
-            padding: 15px 40px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            color: #fff;
-            background: linear-gradient(45deg, #00ffcc, #ff00cc);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .enter-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.8);
-        }
-
-        /* Section Styling */
-        .section {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .section h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            color: #00ffcc;
-            margin-bottom: 20px;
-        }
-
-        .section p {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-        }
-
-        .link-button {
+        .welcome-logo-container {
+            position: relative;
             display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            text-decoration: none;
-            transition: background 0.3s ease;
-            margin: 5px;
+            margin-bottom: 20px;
         }
 
-        .link-button:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .welcome-logo {
+            width: 150px;
+            height: auto;
+            filter: contrast(150%);
+            position: relative;
+            z-index: 2;
         }
 
-        /* Discord Preview */
-        .discord-preview {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .discord-preview:hover {
-            transform: translateY(-5px);
-        }
-
-        .discord-preview img {
-            width: 60px;
-            height: 60px;
+        .orb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent);
+            transform: translate(-50%, -50%);
+            animation: orbPulse 10s infinite linear, hueRotate 10s infinite linear;
+            z-index: 1;
             border-radius: 50%;
         }
 
-        .discord-preview p {
+        @keyframes orbPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; }
+        }
+
+        @keyframes hueRotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .welcome-logo-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(20px);
+            animation: glow 10s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes glow {
+            0% { filter: blur(20px) hue-rotate(0deg); }
+            100% { filter: blur(20px) hue-rotate(360deg); }
+        }
+
+        .welcome h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #000000;
+            text-transform: uppercase;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+
+        .choice-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .choice-button {
+            padding: 10px 20px;
             font-size: 16px;
-            margin: 0;
+            font-weight: 700;
+            color: #ffffff;
+            background: #000000;
+            border: 1px solid #000000;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background 0.2s ease, border-color 0.2s ease;
         }
 
-        .discord-preview .stats {
+        .choice-button:hover {
+            background: #333333;
+            border-color: #333333;
+        }
+
+        .section {
+            padding: 30px;
+            border: 1px solid #000000;
+            margin: 30px 0;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .link-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .link-button {
+            flex: 1 1 calc(50% - 15px);
+            max-width: calc(50% - 15px);
+            padding: 10px 20px;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
+            font-weight: 700;
+            color: #ffffff;
+            background: #000000;
+            border: 1px solid #000000;
+            text-decoration: none;
+            text-transform: uppercase;
+            text-align: center;
+            transition: background 0.2s ease, border-color 0.2s ease;
         }
 
-        /* Responsive */
+        .link-button:hover {
+            background: #333333;
+            border-color: #333333;
+        }
+
+        .link-button:last-child:nth-child(odd) {
+            flex: 1 1 100%;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .discord-preview {
+            background: #ffffff;
+            border: 1px solid #000000;
+            padding: 15px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            max-width: 300px;
+            transition: border-color 0.2s ease;
+        }
+
+        .discord-preview:hover {
+            border-color: #333333;
+        }
+
+        .discord-preview img {
+            width: 50px;
+            height: 50px;
+            filter: contrast(150%);
+        }
+
+        .discord-preview p {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .return-button {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            font-style: italic;
+            color: #000000;
+            background: transparent;
+            border: 2px solid #000000;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .return-button:hover {
+            color: #333333;
+            border-color: #333333;
+        }
+
         @media (max-width: 768px) {
-            .intro-logo { width: 200px; }
-            .intro h1 { font-size: 48px; }
-            .intro p { font-size: 18px; }
+            .container { max-width: 600px; padding: 30px 15px; }
+            .welcome-logo { width: 120px; }
+            .orb { width: 160px; height: 160px; }
+            .welcome h1 { font-size: 28px; }
             .section { padding: 20px; }
-            .nav ul li { font-size: 14px; padding: 6px 12px; }
+            .link-button { padding: 8px 16px; font-size: 13px; }
         }
 
         @media (max-width: 480px) {
-            .intro-logo { width: 150px; }
-            .intro h1 { font-size: 36px; }
-            .enter-button { padding: 12px 30px; font-size: 18px; }
+            .container { padding: 20px 10px; }
+            .welcome-logo { width: 100px; }
+            .orb { width: 140px; height: 140px; }
+            .welcome h1 { font-size: 24px; }
+            .choice-button { padding: 8px 16px; font-size: 14px; }
             .discord-preview { flex-direction: column; text-align: center; }
-            .container { padding-top: 80px; }
+            .link-button { flex: 1 1 100%; max-width: 100%; }
         }
     </style>
 </head>
 <body>
-    <nav class="nav">
-        <ul>
-            <li class="active" onclick="showContent('intro')">Intro</li>
-            <li onclick="showContent('socials')">Socials</li>
-            <li onclick="showContent('merch')">Merch</li>
-            <li onclick="showContent('community')">Community</li>
-        </ul>
-    </nav>
+    <div class="background"></div>
     <div class="container">
-        <div class="content active" id="intro">
-            <div class="intro">
-                <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Logo" class="intro-logo">
+        <div class="content active" id="welcome">
+            <div class="welcome">
+                <div class="welcome-logo-container">
+                    <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Logo" class="welcome-logo">
+                    <div class="orb"></div>
+                    <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Glow" class="welcome-logo-glow">
+                </div>
                 <h1>FRONK'S WORLD</h1>
-                <p id="tagline">Chaos, Streamed Live</p>
-                <button class="enter-button" onclick="showContent('socials')">Enter the Fever Dream</button>
+                <div class="choice-buttons">
+                    <button class="choice-button">SOCIALS</button>
+                    <button class="choice-button">COMMUNITY</button>
+                </div>
             </div>
         </div>
         <div class="content" id="socials">
             <div class="section">
-                <h2>Socials</h2>
-                <p>Join FRONK across the multiverse of platforms.</p>
-                <div>
-                    <a href="https://www.tiktok.com/@thefronk" class="link-button">TikTok 🎭</a>
-                    <a href="https://www.youtube.com/@the_fronk" class="link-button">YouTube 📺</a>
-                    <a href="https://www.instagram.com/thefronky" class="link-button">Instagram 📌</a>
-                    <a href="https://www.twitch.tv/thefronky" class="link-button">Twitch ❤️</a>
-                    <a href="https://kick.com/the-fronk" class="link-button">Kick 🎲</a>
+                <h2>SOCIALS</h2>
+                <div class="link-container">
+                    <a href="https://www.tiktok.com/@thefronk" class="link-button">TikTok</a>
+                    <a href="https://www.youtube.com/@the_fronk" class="link-button">YouTube</a>
+                    <a href="https://www.instagram.com/thefronky" class="link-button">Instagram</a>
+                    <a href="https://www.twitch.tv/thefronky" class="link-button">Twitch</a>
+                    <a href="https://kick.com/the-fronk" class="link-button">Kick</a>
                 </div>
-            </div>
-        </div>
-        <div class="content" id="merch">
-            <div class="section">
-                <h2>Merch</h2>
-                <p>Wear the chaos with exclusive FRONK gear.</p>
-                <a href="https://my-store-aba855.creator.spring.com/listing/fronk-merch-drop" class="link-button">Shop Now</a>
+                <button class="return-button" onclick="showContent('welcome')">RETURN</button>
             </div>
         </div>
         <div class="content" id="community">
             <div class="section">
-                <h2>Community</h2>
-                <p>Join the FRONK community for 24/7 chaos and exclusive updates.</p>
+                <h2>COMMUNITY</h2>
                 <div class="discord-preview" onclick="window.open('https://discord.gg/bsccAeZqVa', '_blank')">
                     <img src="https://github.com/thefronky/pfp/blob/main/Fronk%20pfp%20transparent%20background.png?raw=true" alt="FRONK Logo" class="discord-logo">
                     <div>
-                        <p>FRONK'S Discord</p>
-                        <p class="stats">Join Thousands of Members</p>
+                        <p>FRONK'S DISCORD</p>
                     </div>
                 </div>
-                <p>If you have trouble joining, <a href="https://discord.gg/bsccAeZqVa" class="link-button">click here</a>.</p>
+                <button class="return-button" onclick="showContent('welcome')">RETURN</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Tabbed navigation
         function showContent(tab) {
             const contents = document.querySelectorAll('.content');
-            const tabs = document.querySelectorAll('.nav ul li');
 
             contents.forEach(content => {
                 content.classList.remove('active');
                 content.style.display = 'none';
             });
-            tabs.forEach(tabElement => tabElement.classList.remove('active'));
 
             const selectedContent = document.getElementById(tab);
             selectedContent.classList.add('active');
             selectedContent.style.display = 'block';
-            document.querySelector(`.nav ul li[onclick="showContent('${tab}')"]`).classList.add('active');
 
             setTimeout(() => {
                 selectedContent.style.opacity = '1';
             }, 50);
         }
 
-        // Dynamic tagline
-        const taglines = [
-            'Chaos, Streamed Live',
-            'Join the Fever Dream',
-            'A Theatrical Explosion',
-            'FRONK Awaits You'
-        ];
-        let currentTagline = 0;
-        const taglineElement = document.getElementById('tagline');
-        setInterval(() => {
-            taglineElement.style.opacity = 0;
-            setTimeout(() => {
-                taglineElement.textContent = taglines[currentTagline];
-                taglineElement.style.opacity = 1;
-                currentTagline = (currentTagline + 1) % taglines.length;
-            }, 500);
-        }, 5000);
+        // Attach event listeners to buttons
+        document.querySelectorAll('.choice-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tab = button.textContent.toLowerCase();
+                showContent(tab);
+            });
+        });
 
-        // Initialize
         window.onload = () => {
-            showContent('intro');
+            showContent('welcome');
         };
     </script>
 </body>
