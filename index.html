@@ -1,290 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>THE FRONK SHOW</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet" />
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #000; /* Closer to black, like dark mode on X */
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        section {
-            padding: 3rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        h1, h2 {
-            font-family: 'Bungee', cursive;
-            color: #fff;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5); /* 3D feel */
-        }
-
-        h1 {
-            font-size: 4rem; /* Bigger top title */
-        }
-
-        #hero {
-            background: #000;
-            padding: 5rem 0;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        #hero img {
-            width: 200px;
-            filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.7));
-            animation: subtleGlow 3s infinite alternate;
-        }
-
-        @keyframes subtleGlow {
-            0% { filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.7)); }
-            100% { filter: drop-shadow(5px 5px 15px rgba(255,255,255,0.2)); }
-        }
-
-        #hosted-by {
-            font-family: 'Bungee', cursive;
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        #next-show-label {
-            font-family: 'Bungee', cursive;
-            font-size: 1.2rem;
-            color: #fff;
-            margin-bottom: 1rem;
-            text-align: center; /* Centered */
-        }
-
-        #live-billboard {
-            background: #111;
-            border: 10px solid #ccc; /* Default gray border */
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.1); /* 3D inset */
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        #live-billboard.live {
-            border: 10px solid #ff0000;
-            animation: shine 2s infinite;
-            box-shadow: 0 10px 20px #ff0000, inset 0 0 10px rgba(255,0,0,0.3);
-        }
-
-        @keyframes shine {
-            50% { box-shadow: 0 10px 30px #ff0000; }
-        }
-
-        #countdown {
-            font-family: 'Bungee', cursive;
-            font-size: 2rem;
-            color: #ff0000;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-bottom: 2rem; /* More space */
-        }
-
-        .watch-btn {
-            padding: 1rem 3rem;
-            background: linear-gradient(to bottom, #ccc, #aaa);
-            color: #fff;
-            border: none;
-            border-radius: 50px; /* Oval shape */
-            cursor: not-allowed;
-            display: inline-block;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 0 -2px 5px rgba(255,255,255,0.2); /* 3D effect */
-            transition: transform 0.2s;
-            margin-bottom: 2rem; /* More space */
-        }
-
-        .watch-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .watch-btn.live {
-            background: linear-gradient(to bottom, #ff0000, #cc0000);
-            cursor: pointer;
-            box-shadow: 0 5px 15px #ff0000, inset 0 -2px 5px rgba(255,255,255,0.2);
-        }
-
-        .embed-section .grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .embed-section .grid > div {
-            flex: 1 1 300px;
-            max-width: 400px;
-            background: #111;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        #youtube-section {
-            background: #111;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        #youtube-section a {
-            color: #ff0000;
-            text-decoration: none;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        #youtube-logo {
-            width: 30px;
-        }
-
-        #instagram-interactive {
-            background: #111;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            margin-bottom: 2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: transform 0.3s, opacity 0.3s;
-        }
-
-        #instagram-interactive.checked {
-            transform: scale(0.9);
-            opacity: 0;
-        }
-
-        #instagram-interactive input {
-            transform: scale(1.5); /* Bigger checkbox */
-            margin-right: 0.5rem;
-        }
-
-        #instagram-interactive label {
-            cursor: pointer;
-        }
-
-        #instagram-follow {
-            display: none;
-            background: #111;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s, transform 0.3s;
-        }
-
-        #instagram-follow.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #instagram-follow a {
-            color: #ff0000;
-            text-decoration: none;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        #instagram-logo {
-            width: 30px;
-        }
-
-        #discord-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 0.5rem 1.5rem;
-            background: #111;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.5), inset 0 0 5px rgba(255,255,255,0.1);
-            transition: transform 0.2s;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #discord-button:hover {
-            transform: translateY(-2px);
-        }
-
-        #discord-button-bottom {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 0.5rem 1.5rem;
-            background: #111;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.5), inset 0 0 5px rgba(255,255,255,0.1);
-            transition: transform 0.2s;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #discord-button-bottom:hover {
-            transform: translateY(-2px);
-        }
-
-        footer {
-            background: #111;
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 -5px 10px rgba(0,0,0,0.5);
-        }
-
-        @media (max-width: 768px) {
-            footer {
-                flex-direction: column;
-            }
-        }
+        body { font-family: 'Poppins', sans-serif; background:#000; color:#fff; margin:0; }
+        h1,h2 { font-weight:900; }
+        h1 { font-size:3rem; }
+        #hero { text-align:center; padding:3rem 1rem; }
+        #hero img { width:200px; height:auto; display:block; margin:1rem auto; }
+        #live-billboard { background:#111; border:10px solid #ccc; border-radius:20px; max-width:600px; margin:2rem auto; padding:2rem; text-align:center; }
+        #live-billboard.live { border-color:red; box-shadow:0 0 20px red; }
+        #countdown { font-size:2rem; font-weight:900; color:red; min-height:2.5rem; }
+        .watch-btn { display:inline-block; padding:1rem 3rem; border-radius:50px; text-decoration:none; font-weight:700; background:#888; color:#fff; cursor:not-allowed; }
+        .watch-btn.live { background:red; cursor:pointer; }
+        #youtube-section, #instagram-follow { background:#111; border-radius:20px; margin:2rem auto; max-width:600px; text-align:center; }
+        #youtube-section a, #instagram-follow a { display: block; padding: 2rem; text-decoration: none; color: #fff; }
+        #youtube-logo, #instagram-logo { width:30px; height:30px; }
+        #youtube-section span, #instagram-follow span { font-weight: 900; }
+        #latest-tiktoks h2 { text-align: center; }
+        footer { background:#111; text-align:center; padding:1rem; }
     </style>
 </head>
 <body>
-    <a id="discord-button" href="https://discord.gg/bsccAeZqVa" target="_blank">
-        Join Discord
-    </a>
-
     <section id="hero">
         <h1>THE FRONK SHOW</h1>
-        <p id="hosted-by">hosted by Fronk</p>
-        <img src="https://raw.githubusercontent.com/thefronky/pfp/main/Fronk%20pfp%20transparent%20background.png" alt="FRONK Logo">
+        <p id="hosted-by">hosted by</p>
+        <img src="https://raw.githubusercontent.com/thefronky/pfp/main/Fronk%20pfp%20transparent%20background.png?raw=1" alt="FRONK Logo" />
     </section>
-
-    <p id="next-show-label">Next Show:</p>
 
     <section id="live-section">
         <div id="live-billboard">
@@ -296,168 +43,105 @@
 
     <section id="youtube-section">
         <a href="https://www.youtube.com/@the_fronk" target="_blank">
-            <img id="youtube-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
-            <h2>Full Replays of The Fronk Show on YouTube</h2>
+            <img id="youtube-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" />
+            <span>Full Replays of The Fronk Show on YouTube</span>
         </a>
     </section>
 
-    <section id="instagram-section" class="embed-section">
-        <div id="instagram-interactive">
-            <input type="checkbox" id="instagram-check" onclick="revealFollow()">
-            <label for="instagram-check">I use Instagram (Click if true)</label>
-        </div>
-        <div id="instagram-follow">
-            <a href="https://www.instagram.com/thefronky" target="_blank">
-                <img id="instagram-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-                <h2>Follow Fronk There</h2>
-            </a>
-        </div>
-        <div class="grid">
-            <div>
-                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMLEmrFOr_q/" data-instgrm-version="14"></blockquote> <script async src="//www.instagram.com/embed.js"></script>
-            </div>
-            <div>
-                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DLy3wjkO3h9/" data-instgrm-version="14"></blockquote> <script async src="//www.instagram.com/embed.js"></script>
-            </div>
-            <div>
-                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DAe5cZJPKLl/" data-instgrm-version="14"></blockquote> <script async src="//www.instagram.com/embed.js"></script>
-            </div>
-        </div>
+    <section id="instagram-follow">
+        <a href="https://www.instagram.com/thefronky" target="_blank">
+            <img id="instagram-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+            <span>Check out Fronk's Unhinged Stories on Instagram</span>
+        </a>
     </section>
 
-    <section id="latest-tiktoks" class="embed-section">
+    <section id="latest-tiktoks">
         <h2>Based on your search history, here’s a Fronk video we think you’ll like:</h2>
-        <div class="grid">
-            <div>
-                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@thefronk/video/7539793308722187533" data-video-id="7539793308722187533"><section><a target="_blank" href="https://www.tiktok.com/@thefronk">@thefronk</a> The new battle series with @Petro and #FRONK… CHAOS!</section></blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-            </div>
+        <div id="tiktok-card">
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@thefronk/video/7541078072565468430" data-video-id="7541078072565468430" style="max-width:400px;min-width:300px;">
+                <section>
+                    <a target="_blank" href="https://www.tiktok.com/@thefronk">@thefronk</a> 
+                </section>
+            </blockquote>
+            <script async src="https://www.tiktok.com/embed.js"></script>
         </div>
     </section>
 
-    <a id="discord-button-bottom" href="https://discord.gg/bsccAeZqVa" target="_blank">
-        Join Discord
-    </a>
-
-    <footer>
-        &copy; 2025 THE FRONK SHOW. All rights reserved.
-    </footer>
+    <footer>&copy; 2025 THE FRONK SHOW. All rights reserved.</footer>
 
     <script>
-        // Live Countdown with typewriter effect
-        let countdownText = '';
-        let typingInterval;
-        let currentMessage = '';
-        let isTyping = false;
-        let isBackspacing = false;
-        let lastUpdateTime = Date.now();
-
-        function typeWriter(text, callback) {
-            let i = 0;
-            isTyping = true;
-            typingInterval = setInterval(() => {
-                if (i < text.length) {
-                    countdownText += text.charAt(i);
-                    document.getElementById('countdown').innerHTML = countdownText + '|';
-                    i++;
-                } else {
-                    clearInterval(typingInterval);
-                    document.getElementById('countdown').innerHTML = countdownText;
-                    isTyping = false;
-                    if (callback) callback();
-                }
-            }, 100); // Slower typing
+        let currentMessage="";
+        let interval;
+        function getNextShowET(now){
+            let etNow=new Date(now.toLocaleString("en-US",{timeZone:"America/New_York"}));
+            let next=new Date(etNow);
+            next.setHours(22,30,0,0);
+            if(etNow>next) next.setDate(next.getDate()+1);
+            return next;
         }
-
-        function backspace(newText, callback) {
-            isBackspacing = true;
-            let commonLength = 0;
-            while (commonLength < countdownText.length && commonLength < newText.length && countdownText[commonLength] === newText[commonLength]) {
-                commonLength++;
-            }
-            let i = countdownText.length;
-            typingInterval = setInterval(() => {
-                if (i > commonLength) {
-                    countdownText = countdownText.slice(0, -1);
-                    document.getElementById('countdown').innerHTML = countdownText + '|';
-                    i--;
-                } else {
-                    clearInterval(typingInterval);
-                    isBackspacing = false;
-                    typeWriter(newText.slice(commonLength), callback);
-                }
-            }, 60); // Slower backspace
-        }
-
-        function getCountdownMessage(hours, mins) {
-            let message = '';
-            if (hours > 0) {
-                message += `${hours} hour${hours > 1 ? 's' : ''}`;
-            }
-            if (hours > 0 && mins > 0) message += ' and ';
-            if (mins > 0) {
-                message += `${mins} minute${mins > 1 ? 's' : ''}`;
-            }
-            return message;
-        }
-
-        function updateCountdown() {
-            const now = Date.now();
-            const diffTime = now - lastUpdateTime;
-            lastUpdateTime = now;
-
-            const etOptions = { timeZone: 'America/New_York' };
-            const etString = new Date().toLocaleString("en-US", etOptions);
-            const etNow = new Date(etString);
-            let nextStart = new Date(etNow);
-            nextStart.setHours(22, 30, 0, 0);
-            if (etNow > nextStart) {
-                nextStart.setDate(nextStart.getDate() + 1);
-            }
-            const endTime = new Date(nextStart);
-            endTime.setHours(24, 0, 0, 0);
-            const billboard = document.getElementById('live-billboard');
-            const watchLink = document.getElementById('watch-link');
-            let newMessage;
-            if (etNow >= nextStart && etNow < endTime) {
+        function updateCountdown(){
+            let now=new Date();
+            let etNow=new Date(now.toLocaleString("en-US",{timeZone:"America/New_York"}));
+            let start=getNextShowET(now);
+            let end=new Date(start.getTime()+90*60000);
+            let billboard=document.getElementById('live-billboard');
+            let watchLink=document.getElementById('watch-link');
+            let cd=document.getElementById('countdown');
+            let newMsg="";
+            if(etNow>=start && etNow<end){
+                newMsg="LIVE NOW!";
                 billboard.classList.add('live');
-                newMessage = 'LIVE NOW!';
                 watchLink.classList.add('live');
-                watchLink.href = 'https://www.tiktok.com/@thefronk/live';
-                watchLink.style.cursor = 'pointer';
-            } else {
-                let diff = nextStart - etNow - diffTime; // Adjust for time passed
-                if (diff < 0) diff = 0;
-                const hours = Math.floor(diff / 3600000);
-                const mins = Math.floor((diff % 3600000) / 60000);
-                newMessage = getCountdownMessage(hours, mins);
+                watchLink.href='https://www.tiktok.com/@thefronk/live';
+            }else{
+                let diff=start-etNow;
+                let h=Math.floor(diff/3600000);
+                let m=Math.floor((diff%3600000)/60000);
+                if(h) newMsg+=h+" hour"+(h>1?"s":"");
+                if(h&&m) newMsg+=" and ";
+                if(m) newMsg+=m+" minute"+(m>1?"s":"");
+                if(!newMsg) newMsg="less than a minute";
                 billboard.classList.remove('live');
                 watchLink.classList.remove('live');
                 watchLink.removeAttribute('href');
-                watchLink.style.cursor = 'not-allowed';
             }
-            if (newMessage !== currentMessage) {
-                if (isTyping || isBackspacing) clearInterval(typingInterval);
-                backspace(newMessage, () => {
-                    currentMessage = newMessage;
-                });
+            if(newMsg!==currentMessage){
+                currentMessage=newMsg;
+                typewriter(newMsg);
             }
+        }
+        function typewriter(text){
+            let cd=document.getElementById('countdown');
+            cd.textContent="";
+            let i=0;
+            clearInterval(interval);
+            interval=setInterval(()=>{
+                if(i<text.length){
+                    cd.textContent=text.slice(0,i+1)+"|";
+                    i++;
+                }else{
+                    clearInterval(interval);
+                    cd.textContent=text;
+                }
+            },80);
         }
         updateCountdown();
-        setInterval(updateCountdown, 1000); // Update every second for real-time
+        setInterval(updateCountdown,1000);
 
-        // Reveal Follow with animation
-        function revealFollow() {
-            if (document.getElementById('instagram-check').checked) {
-                const interactive = document.getElementById('instagram-interactive');
-                interactive.classList.add('checked');
-                setTimeout(() => {
-                    interactive.style.display = 'none';
-                    const follow = document.getElementById('instagram-follow');
-                    follow.style.display = 'block';
-                    setTimeout(() => follow.classList.add('visible'), 100);
-                }, 300);
-            }
-        }
+        // TikTok fallback
+        window.addEventListener('load',()=>{
+            setTimeout(()=>{
+                const card=document.getElementById('tiktok-card');
+                if(card&&!card.querySelector('iframe')){
+                    const btn=document.createElement('a');
+                    btn.href='https://www.tiktok.com/@thefronk/video/7541078072565468430';
+                    btn.target='_blank';
+                    btn.textContent='Watch on TikTok';
+                    btn.className='watch-btn live';
+                    card.appendChild(btn);
+                }
+            },2000);
+        });
     </script>
 </body>
 </html>
