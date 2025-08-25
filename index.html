@@ -52,7 +52,7 @@
 </head>
 <body>
     <!-- Background Video -->
-    <video id="bg-video" autoplay loop muted playsinline poster="https://raw.githubusercontent.com/thefronky/loopbackground/main/website%20video.mp4">
+    <video id="bg-video" autoplay loop muted playsinline poster="https://raw.githubusercontent.com/thefronky/loopbackground/main/poster.jpg"> <!-- Replace with your actual poster image URL -->
         <source src="https://raw.githubusercontent.com/thefronky/loopbackground/main/website%20video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -102,6 +102,16 @@
     <footer>&copy; 2025 THE FRONK SHOW. All rights reserved.</footer>
 
     <script>
+        // Attempt to play video on user interaction for mobile
+        document.addEventListener('touchstart', function() {
+            var video = document.getElementById('bg-video');
+            if (video.paused) {
+                video.play().catch(function(error) {
+                    console.log('Video play failed:', error);
+                });
+            }
+        }, { once: true });
+
         let currentMessage = "";
         let interval;
         let isAnimating = false;
