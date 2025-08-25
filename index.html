@@ -10,11 +10,12 @@
     <style>
         body { font-family: 'Poppins', sans-serif; background:#000; color:#fff; margin:0; }
         h1,h2 { font-weight:900; }
-        h1 { font-size:3rem; }
+        h1 { font-size:3rem; white-space: nowrap; }
         #hero { text-align:center; padding:3rem 1rem; }
         #hero img { width:200px; height:auto; display:block; margin:1rem auto; }
         #live-billboard { background:#111; border:10px solid #ccc; border-radius:20px; max-width:600px; margin:2rem auto; padding:2rem; text-align:center; }
         #live-billboard.live { border-color:red; box-shadow:0 0 20px red; }
+        #live-billboard p { white-space: nowrap; font-size: 0.9rem; }
         #countdown { font-size:2rem; font-weight:900; color:red; min-height:2.5rem; }
         .watch-btn { display:inline-block; padding:1rem 3rem; border-radius:50px; text-decoration:none; font-weight:700; background:#888; color:#fff; cursor:not-allowed; }
         .watch-btn.live { background:red; cursor:pointer; }
@@ -24,6 +25,9 @@
         #youtube-section span, #instagram-follow span { font-weight: 900; }
         #latest-tiktoks h2 { text-align: center; }
         footer { background:#111; text-align:center; padding:1rem; }
+        @media (max-width: 600px) {
+            #live-billboard p { font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -56,11 +60,11 @@
     </section>
 
     <section id="latest-tiktoks">
-        <h2>Based on your search history, here’s a Fronk video we think you’ll like:</h2>
+        <h2>FRONK VIDEO OF THE DAY</h2>
         <div id="tiktok-card">
-            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@thefronk/video/7541078072565468430" data-video-id="7541078072565468430" style="max-width:400px;min-width:300px;">
+            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@thefronk/video/7542332113819929870" data-video-id="7542332113819929870" style="max-width:400px;min-width:300px;">
                 <section>
-                    <a target="_blank" href="https://www.tiktok.com/@thefronk">@thefronk</a> 
+                    <a target="_blank" href="https://www.tiktok.com/@thefronk">@thefronk</a> CHAOS = #BEST #SERIES WITH #FRONK & @Petro 
                 </section>
             </blockquote>
             <script async src="https://www.tiktok.com/embed.js"></script>
@@ -70,77 +74,204 @@
     <footer>&copy; 2025 THE FRONK SHOW. All rights reserved.</footer>
 
     <script>
-        let currentMessage="";
+        let currentMessage = "";
         let interval;
-        function getNextShowET(now){
-            let etNow=new Date(now.toLocaleString("en-US",{timeZone:"America/New_York"}));
-            let next=new Date(etNow);
-            next.setHours(22,30,0,0);
-            if(etNow>next) next.setDate(next.getDate()+1);
+        let isAnimating = false;
+
+        function commonPrefix(str1, str2) {
+            let minLen = Math.min(str1.length, str2.length);
+            let i = 0;
+            while (i < minLen && str1[i] === str2[i]) {
+                i++;
+            }
+            return i;
+        }
+
+        function animateTransition(oldText, newText) {
+            let prefixLen = commonPrefix(oldText, newText);
+            isAnimating = true;
+            let cd = document.getElementById('countdown');
+            let currentLen = oldText.length;
+            cd.textContent = oldText + '|';
+
+            let backSteps = currentLen - prefixLen;
+            let typeSteps = newText.length - prefixLen;
+            let totalSteps = backSteps + typeSteps;
+            const TRANSITION_TIME = 10000; // 10 seconds for transition
+            let charDelay = totalSteps > 0 ? TRANSITION_TIME / totalSteps : 0;
+
+            if (backSteps > 0) {
+                // Backspace to prefix
+                let k = currentLen;
+                interval = setInterval(() => {
+                    if (k > prefixLen) {
+                        cd.textContent = oldText.slice(0, k - 1) + '|';
+                        k--;
+                    } else {
+                        clearInterval(interval);
+                        typeSuffix(newText, prefixLen);
+                    }
+                }, charDelay);
+            } else {
+                typeSuffix(newText, prefixLen);
+            }
+
+            function typeSuffix(newText, prefixLen) {
+                let suffix = newText.slice(prefixLen);
+                let suffixLen = suffix.length;
+                let j = 0;
+                cd.textContent = newText.slice(0, prefixLen) + '|';
+                if (suffixLen === 0) {
+                    cd.textContent = newText;
+                    isAnimating = false;
+                    return;
+                }
+                interval = setInterval(() => {
+                    if (j < suffixLen) {
+                        cd.textContent = newText.slice(0, prefixLen + j + 1) + '|';
+                        j++;
+                    } else {
+                        clearInterval(interval);
+                        cd.textContent = newText;
+                        isAnimating = false;
+                    }
+                }, charDelay);
+            }
+        }
+
+        function startAnimationSequence() {
+            isAnimating = true;
+            backspaceToEmpty(() => {
+                typeFromEmpty(currentMessage, () => {
+                    isAnimating = false;
+                });
+            });
+        }
+
+        function backspaceToEmpty(callback) {
+            const BACK_TIME = 25000; // 25 seconds
+            let cd = document.getElementById('countdown');
+            let text = cd.textContent.replace(/\|$/, '');
+            let len = text.length;
+            if (len === 0) {
+                callback();
+                return;
+            }
+            let delay = BACK_TIME / len;
+            cd.textContent = text + '|';
+            let i = len;
+            interval = setInterval(() => {
+                if (i > 0) {
+                    i--;
+                    cd.textContent = text.slice(0, i) + '|';
+                } else {
+                    clearInterval(interval);
+                    cd.textContent = '';
+                    callback();
+                }
+            }, delay);
+        }
+
+        function typeFromEmpty(text, callback) {
+            const TYPE_TIME = 25000; // 25 seconds
+            let cd = document.getElementById('countdown');
+            let len = text.length;
+            if (len === 0) {
+                callback();
+                return;
+            }
+            let delay = TYPE_TIME / len;
+            cd.textContent = '|';
+            let i = 0;
+            interval = setInterval(() => {
+                if (i < len) {
+                    cd.textContent = text.slice(0, i + 1) + '|';
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    cd.textContent = text;
+                    callback();
+                }
+            }, delay);
+        }
+
+        function getNextShowET(now) {
+            let etNow = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+            let next = new Date(etNow);
+            next.setHours(22, 30, 0, 0);
+            if (etNow > next) next.setDate(next.getDate() + 1);
             return next;
         }
-        function updateCountdown(){
-            let now=new Date();
-            let etNow=new Date(now.toLocaleString("en-US",{timeZone:"America/New_York"}));
-            let start=getNextShowET(now);
-            let end=new Date(start.getTime()+90*60000);
-            let billboard=document.getElementById('live-billboard');
-            let watchLink=document.getElementById('watch-link');
-            let cd=document.getElementById('countdown');
-            let newMsg="";
-            if(etNow>=start && etNow<end){
-                newMsg="LIVE NOW!";
+
+        function updateCountdown() {
+            let now = new Date();
+            let etNow = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+            let start = getNextShowET(now);
+            let end = new Date(start.getTime() + 90 * 60000);
+            let billboard = document.getElementById('live-billboard');
+            let watchLink = document.getElementById('watch-link');
+            let cd = document.getElementById('countdown');
+            let newMsg = "";
+            let isLive = etNow >= start && etNow < end;
+            if (isLive) {
+                newMsg = "LIVE NOW!";
                 billboard.classList.add('live');
                 watchLink.classList.add('live');
-                watchLink.href='https://www.tiktok.com/@thefronk/live';
-            }else{
-                let diff=start-etNow;
-                let h=Math.floor(diff/3600000);
-                let m=Math.floor((diff%3600000)/60000);
-                if(h) newMsg+=h+" hour"+(h>1?"s":"");
-                if(h&&m) newMsg+=" and ";
-                if(m) newMsg+=m+" minute"+(m>1?"s":"");
-                if(!newMsg) newMsg="less than a minute";
+                watchLink.href = 'https://www.tiktok.com/@thefronk/live';
+            } else {
+                let diff = start - etNow;
+                let h = Math.floor(diff / 3600000);
+                let m = Math.floor((diff % 3600000) / 60000);
+                if (h) newMsg += h + " hour" + (h > 1 ? "s" : "");
+                if (h && m) newMsg += " and ";
+                if (m) newMsg += m + " minute" + (m > 1 ? "s" : "");
+                if (!newMsg) newMsg = "less than a minute";
                 billboard.classList.remove('live');
                 watchLink.classList.remove('live');
                 watchLink.removeAttribute('href');
             }
-            if(newMsg!==currentMessage){
-                currentMessage=newMsg;
-                typewriter(newMsg);
+
+            if (newMsg !== currentMessage) {
+                let oldText = cd.textContent.replace(/\|$/, '');
+                clearInterval(interval);
+                animateTransition(oldText, newMsg);
+                currentMessage = newMsg;
+            }
+
+            let seconds = etNow.getSeconds();
+            if (!isLive && (seconds < 5 || seconds >= 55)) {
+                if (!isAnimating) {
+                    cd.textContent = currentMessage;
+                }
+            } else if (!isLive) {
+                if (!isAnimating) {
+                    clearInterval(interval);
+                    startAnimationSequence();
+                }
+            } else {
+                // During live, keep static
+                if (!isAnimating) {
+                    cd.textContent = currentMessage;
+                }
             }
         }
-        function typewriter(text){
-            let cd=document.getElementById('countdown');
-            cd.textContent="";
-            let i=0;
-            clearInterval(interval);
-            interval=setInterval(()=>{
-                if(i<text.length){
-                    cd.textContent=text.slice(0,i+1)+"|";
-                    i++;
-                }else{
-                    clearInterval(interval);
-                    cd.textContent=text;
-                }
-            },80);
-        }
+
         updateCountdown();
-        setInterval(updateCountdown,1000);
+        setInterval(updateCountdown, 1000);
 
         // TikTok fallback
-        window.addEventListener('load',()=>{
-            setTimeout(()=>{
-                const card=document.getElementById('tiktok-card');
-                if(card&&!card.querySelector('iframe')){
-                    const btn=document.createElement('a');
-                    btn.href='https://www.tiktok.com/@thefronk/video/7541078072565468430';
-                    btn.target='_blank';
-                    btn.textContent='Watch on TikTok';
-                    btn.className='watch-btn live';
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const card = document.getElementById('tiktok-card');
+                if (card && !card.querySelector('iframe')) {
+                    const btn = document.createElement('a');
+                    btn.href = 'https://www.tiktok.com/@thefronk/video/7542332113819929870';
+                    btn.target = '_blank';
+                    btn.textContent = 'Watch on TikTok';
+                    btn.className = 'watch-btn live';
                     card.appendChild(btn);
                 }
-            },2000);
+            }, 2000);
         });
     </script>
 </body>
