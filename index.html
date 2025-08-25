@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet" />
 
     <style>
-        body { font-family: 'Poppins', sans-serif; background:#000; color:#fff; margin:0; }
+        body { font-family: 'Poppins', sans-serif; background:#000; color:#fff; margin:0; position: relative; }
         h1,h2 { font-weight:900; }
         h1 { font-size:3rem; white-space: nowrap; }
         #hero { text-align:center; padding:3rem 1rem; }
@@ -28,9 +28,37 @@
         @media (max-width: 600px) {
             #live-billboard p { font-size: 0.8rem; }
         }
+
+        /* Video Background Styles */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the screen without distortion */
+            z-index: -2; /* Behind all content */
+        }
+        #bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay for readability */
+            z-index: -1; /* Behind content but over video */
+        }
     </style>
 </head>
 <body>
+    <!-- Background Video -->
+    <video id="bg-video" autoplay loop muted playsinline poster="https://raw.githubusercontent.com/thefronky/loopbackground/main/website%20video.mp4">
+        <source src="https://raw.githubusercontent.com/thefronky/loopbackground/main/website%20video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <!-- Overlay for Readability -->
+    <div id="bg-overlay"></div>
+
     <section id="hero">
         <h1>THE FRONK SHOW</h1>
         <p id="hosted-by">hosted by</p>
