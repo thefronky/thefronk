@@ -38,6 +38,9 @@
             height: 100%;
             object-fit: cover; /* Ensures video covers the screen without distortion */
             z-index: -2; /* Behind all content */
+            pointer-events: none; /* Prevent interaction */
+            user-select: none; /* Prevent pausing on touch */
+            -webkit-user-select: none; /* Safari specific */
         }
         #bg-overlay {
             position: fixed;
@@ -47,6 +50,20 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay for readability */
             z-index: -1; /* Behind content but over video */
+        }
+
+        /* Fallback for mobile devices to avoid glitches */
+        @media (max-width: 768px) {
+            #bg-video {
+                display: none;
+            }
+            body {
+                background-image: url('https://raw.githubusercontent.com/thefronky/loopbackground/main/poster.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
         }
     </style>
 </head>
