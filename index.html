@@ -50,9 +50,10 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay for readability */
             z-index: -1; /* Behind content but over video */
+            pointer-events: none; /* Allow touches to pass through to content */
         }
 
-        /* Fallback for mobile devices to avoid glitches */
+        /* Fallback for mobile: Use static image to avoid glitches and restrictions */
         @media (max-width: 768px) {
             #bg-video {
                 display: none;
@@ -69,7 +70,7 @@
 </head>
 <body>
     <!-- Background Video -->
-    <video id="bg-video" autoplay loop muted playsinline poster="https://raw.githubusercontent.com/thefronky/loopbackground/main/poster.jpg">
+    <video id="bg-video" autoplay="autoplay" loop="loop" muted="muted" playsinline="playsinline" poster="https://raw.githubusercontent.com/thefronky/loopbackground/main/poster.jpg">
         <source src="https://raw.githubusercontent.com/thefronky/loopbackground/main/website%20video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
