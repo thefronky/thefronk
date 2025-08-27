@@ -21,62 +21,17 @@
         .watch-btn.live { background:red; cursor:pointer; }
         #youtube-section, #instagram-follow, #discord-section { background:#111; border-radius:20px; margin:2rem auto; max-width:600px; text-align:center; }
         #youtube-section a, #instagram-follow a, #discord-section a { display: flex; align-items: center; justify-content: center; padding: 2rem; text-decoration: none; color: #fff; }
-        #youtube-logo, #instagram-logo, #discord-logo { width:30px; height:30px; margin-right: 10px; }
+        #youtube-logo, #instagram-logo { width:30px; height:30px; margin-right: 10px; }
         #youtube-section span, #instagram-follow span, #discord-section span { font-weight: 900; }
+        #discord-section .chat-emoji { font-size: 30px; margin-right: 10px; }
         #latest-tiktoks h2 { text-align: center; }
         footer { background:#111; text-align:center; padding:1rem; }
         @media (max-width: 600px) {
             #live-billboard p { font-size: 0.8rem; }
         }
-
-        /* Video Background Styles */
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures video covers the screen without distortion */
-            z-index: -2; /* Behind all content */
-            pointer-events: none; /* Prevent interaction */
-            user-select: none; /* Prevent pausing on touch */
-            -webkit-user-select: none; /* Safari specific */
-        }
-        #bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay for readability */
-            z-index: -1; /* Behind content but over video */
-            pointer-events: none; /* Allow touches to pass through to content */
-        }
-
-        /* Fallback for mobile: Use static image to avoid glitches and restrictions */
-        @media (max-width: 768px) {
-            #bg-video {
-                display: none;
-            }
-            body {
-                background-image: url('https://raw.githubusercontent.com/thefronky/loopbackground/main/poster.jpg');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Background Video -->
-    <video id="bg-video" autoplay="autoplay" loop="loop" muted="muted" playsinline="playsinline" poster="https://raw.githubusercontent.com/thefronky/loopbackground/main/poster.jpg">
-        <source src="https://raw.githubusercontent.com/thefronky/loopbackground/main/website%20video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <!-- Overlay for Readability -->
-    <div id="bg-overlay"></div>
-
     <section id="hero">
         <h1>THE FRONK SHOW</h1>
         <p id="hosted-by">hosted by</p>
@@ -107,6 +62,7 @@
 
     <section id="discord-section">
         <a href="https://discord.gg/bsccAeZqVa" target="_blank">
+            <span class="chat-emoji">💬</span>
             <span>Join our 24/7 Chatroom on Discord</span>
         </a>
     </section>
@@ -126,16 +82,6 @@
     <footer>&copy; 2025 THE FRONK SHOW. All rights reserved.</footer>
 
     <script>
-        // Attempt to play video on user interaction for mobile
-        document.addEventListener('touchstart', function() {
-            var video = document.getElementById('bg-video');
-            if (video.paused) {
-                video.play().catch(function(error) {
-                    console.log('Video play failed:', error);
-                });
-            }
-        }, { once: true });
-
         let currentMessage = "";
         let interval;
         let isAnimating = false;
