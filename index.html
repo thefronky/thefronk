@@ -259,10 +259,19 @@
 
         function getNextShowET(now) {
             let etNow = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
-            let next = new Date(etNow);
-            next.setHours(22, 30, 0, 0);
-            if (etNow > next) next.setDate(next.getDate() + 1);
-            return next;
+            let todayStart = new Date(etNow);
+            todayStart.setHours(22, 30, 0, 0);
+            let todayEnd = new Date(todayStart.getTime() + 90 * 60000);
+            if (etNow >= todayStart && etNow < todayEnd) {
+                return todayStart;
+            } else if (etNow < todayStart) {
+                return todayStart;
+            } else {
+                let tomorrowStart = new Date(etNow);
+                tomorrowStart.setDate(tomorrowStart.getDate() + 1);
+                tomorrowStart.setHours(22, 30, 0, 0);
+                return tomorrowStart;
+            }
         }
 
         function updateCountdown() {
