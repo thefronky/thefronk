@@ -19,10 +19,10 @@
         #countdown { font-size:2rem; font-weight:900; color:red; min-height:2.5rem; }
         .watch-btn { display:inline-block; padding:1rem 3rem; border-radius:50px; text-decoration:none; font-weight:700; background:#888; color:#fff; cursor:not-allowed; }
         .watch-btn.live { background:red; cursor:pointer; }
-        #youtube-section, #instagram-follow { background:#111; border-radius:20px; margin:2rem auto; max-width:600px; text-align:center; }
-        #youtube-section a, #instagram-follow a { display: block; padding: 2rem; text-decoration: none; color: #fff; }
-        #youtube-logo, #instagram-logo { width:30px; height:30px; }
-        #youtube-section span, #instagram-follow span { font-weight: 900; }
+        #youtube-section, #instagram-follow, #discord-section { background:#111; border-radius:20px; margin:2rem auto; max-width:600px; text-align:center; }
+        #youtube-section a, #instagram-follow a, #discord-section a { display: flex; align-items: center; justify-content: center; padding: 2rem; text-decoration: none; color: #fff; }
+        #youtube-logo, #instagram-logo, #discord-logo { width:30px; height:30px; margin-right: 10px; }
+        #youtube-section span, #instagram-follow span, #discord-section span { font-weight: 900; }
         #latest-tiktoks h2 { text-align: center; }
         footer { background:#111; text-align:center; padding:1rem; }
         @media (max-width: 600px) {
@@ -102,6 +102,12 @@
         <a href="https://www.instagram.com/thefronky" target="_blank">
             <img id="instagram-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
             <span>Check out Fronk's Unhinged Stories on Instagram</span>
+        </a>
+    </section>
+
+    <section id="discord-section">
+        <a href="https://discord.gg/bsccAeZqVa" target="_blank">
+            <span>Join our 24/7 Chatroom on Discord</span>
         </a>
     </section>
 
