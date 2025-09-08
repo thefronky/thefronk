@@ -19,10 +19,10 @@
         #countdown { font-size:2rem; font-weight:900; color:red; min-height:2.5rem; }
         .watch-btn { display:inline-block; padding:1rem 3rem; border-radius:50px; text-decoration:none; font-weight:700; background:#888; color:#fff; cursor:not-allowed; }
         .watch-btn.live { background:red; cursor:pointer; }
-        #youtube-section, #instagram-follow, #discord-section { background:#111; border-radius:20px; margin:2rem auto; max-width:600px; text-align:center; }
-        #youtube-section a, #instagram-follow a, #discord-section a { display: flex; align-items: center; justify-content: center; padding: 2rem; text-decoration: none; color: #fff; }
-        #youtube-logo, #instagram-logo { width:30px; height:30px; margin-right: 10px; }
-        #youtube-section span, #instagram-follow span, #discord-section span { font-weight: 900; }
+        #youtube-section, #twitch-follow, #instagram-follow, #discord-section { background:#111; border-radius:20px; margin:2rem auto; max-width:600px; text-align:center; }
+        #youtube-section a, #twitch-follow a, #instagram-follow a, #discord-section a { display: flex; align-items: center; justify-content: center; padding: 2rem; text-decoration: none; color: #fff; }
+        #youtube-logo, #twitch-logo, #instagram-logo { width:30px; height:30px; margin-right: 10px; }
+        #youtube-section span, #twitch-follow span, #instagram-follow span, #discord-section span { font-weight: 900; }
         #discord-section .chat-emoji { font-size: 30px; margin-right: 10px; }
         #latest-tiktoks h2 { text-align: center; }
         footer { background:#111; text-align:center; padding:1rem; }
@@ -51,6 +51,13 @@
         <a href="https://www.youtube.com/@the_fronk" target="_blank">
             <img id="youtube-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" />
             <span>Full Replays of The Fronk Show on YouTube</span>
+        </a>
+    </section>
+
+    <section id="twitch-follow">
+        <a href="https://www.twitch.tv/thefronky" target="_blank">
+            <img id="twitch-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/26/Twitch_logo.svg" alt="Twitch" />
+            <span>Watch Fronk Live on Twitch</span>
         </a>
     </section>
 
@@ -110,7 +117,6 @@
             let charDelay = totalSteps > 0 ? TRANSITION_TIME / totalSteps : 0;
 
             if (backSteps > 0) {
-                // Backspace to prefix
                 let k = currentLen;
                 interval = setInterval(() => {
                     if (k > prefixLen) {
@@ -158,7 +164,7 @@
         }
 
         function backspaceToEmpty(callback) {
-            const BACK_TIME = 25000; // 25 seconds
+            const BACK_TIME = 25000;
             let cd = document.getElementById('countdown');
             let text = cd.textContent.replace(/\|$/, '');
             let len = text.length;
@@ -182,7 +188,7 @@
         }
 
         function typeFromEmpty(text, callback) {
-            const TYPE_TIME = 25000; // 25 seconds
+            const TYPE_TIME = 25000;
             let cd = document.getElementById('countdown');
             let len = text.length;
             if (len === 0) {
@@ -267,7 +273,6 @@
                     startAnimationSequence();
                 }
             } else {
-                // During live, keep static
                 if (!isAnimating) {
                     cd.textContent = currentMessage;
                 }
@@ -277,7 +282,6 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // TikTok fallback
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const card = document.getElementById('tiktok-card');
