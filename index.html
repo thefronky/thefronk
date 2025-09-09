@@ -43,7 +43,7 @@
         <div id="live-billboard">
             <div id="countdown"></div>
             <a id="watch-link" class="watch-btn">ENTER</a>
-            <p>Every night 7:30 PM PT / 10:30 PM ET to 9:00 PM PT / 12:00 AM ET on TikTok Live.</p>
+            <p>Monday – Saturday, 7:30 PM PT / 10:30 PM ET.</p>
         </div>
     </section>
 
@@ -113,7 +113,7 @@
             let backSteps = currentLen - prefixLen;
             let typeSteps = newText.length - prefixLen;
             let totalSteps = backSteps + typeSteps;
-            const TRANSITION_TIME = 10000; // 10 seconds for transition
+            const TRANSITION_TIME = 10000;
             let charDelay = totalSteps > 0 ? TRANSITION_TIME / totalSteps : 0;
 
             if (backSteps > 0) {
@@ -212,6 +212,13 @@
 
         function getNextShowET(now) {
             let etNow = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+            // Sunday exclusion
+            if (etNow.getDay() === 0) {
+                let nextDay = new Date(etNow);
+                nextDay.setDate(nextDay.getDate() + 1);
+                nextDay.setHours(22, 30, 0, 0);
+                return nextDay;
+            }
             let todayStart = new Date(etNow);
             todayStart.setHours(22, 30, 0, 0);
             let todayEnd = new Date(todayStart.getTime() + 90 * 60000);
@@ -222,6 +229,10 @@
             } else {
                 let tomorrowStart = new Date(etNow);
                 tomorrowStart.setDate(tomorrowStart.getDate() + 1);
+                // Skip Sunday
+                if (tomorrowStart.getDay() === 0) {
+                    tomorrowStart.setDate(tomorrowStart.getDate() + 1);
+                }
                 tomorrowStart.setHours(22, 30, 0, 0);
                 return tomorrowStart;
             }
@@ -236,20 +247,24 @@
             let watchLink = document.getElementById('watch-link');
             let cd = document.getElementById('countdown');
             let newMsg = "";
-            let isLive = etNow >= start && etNow < end;
+            let isLive = etNow >= start && etNow < end && etNow.getDay() !== 0;
             if (isLive) {
                 newMsg = "LIVE NOW!";
                 billboard.classList.add('live');
                 watchLink.classList.add('live');
                 watchLink.href = 'https://www.tiktok.com/@thefronk/live';
             } else {
-                let diff = start - etNow;
-                let h = Math.floor(diff / 3600000);
-                let m = Math.floor((diff % 3600000) / 60000);
-                if (h) newMsg += h + " hour" + (h > 1 ? "s" : "");
-                if (h && m) newMsg += " and ";
-                if (m) newMsg += m + " minute" + (m > 1 ? "s" : "");
-                if (!newMsg) newMsg = "less than a minute";
+                if (start.getDay() === 0) {
+                    newMsg = "Next show Monday 7:30 PM PT / 10:30 PM ET";
+                } else {
+                    let diff = start - etNow;
+                    let h = Math.floor(diff / 3600000);
+                    let m = Math.floor((diff % 3600000) / 60000);
+                    if (h) newMsg += h + " hour" + (h > 1 ? "s" : "");
+                    if (h && m) newMsg += " and ";
+                    if (m) newMsg += m + " minute" + (m > 1 ? "s" : "");
+                    if (!newMsg) newMsg = "less than a minute";
+                }
                 billboard.classList.remove('live');
                 watchLink.classList.remove('live');
                 watchLink.removeAttribute('href');
